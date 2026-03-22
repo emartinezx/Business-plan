@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Plan Story — Consolidado 2026–2031</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg:    #f5f7fa;
+  --bg2:   #ffffff;
+  --bg3:   #eef1f6;
+  --blue:  #1a6cf0;
+  --blue2: #2563eb;
+  --blueL: #1d4ed8;
+  --gold:  #d97706;
+  --green: #059669;
+  --red:   #dc2626;
+  --text:  #0f172a;
+  --muted: #64748b;
+  --border:rgba(0,0,0,0.08);
+  --font:  'Calibri','Calibri Body',Calibri,sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--blueL));width:0%;z-index:100;box-shadow:0 0 6px rgba(26,108,240,.35);transition:width .1s linear;}
+
+#nav-dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:11px;z-index:99;}
+.nav-dot{width:7px;height:7px;border-radius:50%;border:1px solid rgba(0,0,0,.18);cursor:pointer;transition:all .3s;background:transparent;}
+.nav-dot.active{background:var(--blue);border-color:var(--blue);box-shadow:0 0 8px var(--blue);transform:scale(1.4);}
+.nav-dot:hover{border-color:var(--blue2);}
+
+/* SCENARIO BAR */
+#scenario-bar{position:fixed;top:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:98;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);box-shadow:0 2px 20px rgba(0,0,0,.1);border:1px solid var(--border);border-radius:40px;padding:6px 10px;align-items:center;}
+.sc-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:0 8px;border-right:1px solid var(--border);}
+.sc-btn{padding:7px 20px;border-radius:30px;border:none;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;letter-spacing:.5px;transition:all .25s;background:transparent;color:#475569;}
+.sc-btn:hover{color:var(--text);}
+.sc-btn.opt.active{background:rgba(5,150,105,.12);color:#065f46;box-shadow:0 0 10px rgba(5,150,105,.15);}
+.sc-btn.real.active{background:rgba(37,99,235,.15);color:#1e3a8a;box-shadow:0 0 10px rgba(37,99,235,.2);}
+.sc-btn.pes.active{background:rgba(220,38,38,.12);color:#991b1b;box-shadow:0 0 10px rgba(220,38,38,.15);}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;text-align:center;padding:80px 24px 40px;}
+#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(37,99,235,.07) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(5,150,105,.04) 0%,transparent 60%);pointer-events:none;}
+.hero-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue2);margin-bottom:24px;font-weight:600;}
+.hero-title{font-family:var(--font);font-size:clamp(44px,7vw,88px);font-weight:800;line-height:.95;letter-spacing:-3px;margin-bottom:24px;}
+.hero-title .accent{color:var(--blue);display:block;}
+.hero-subtitle{font-size:clamp(14px,1.8vw,18px);color:#475569;max-width:540px;line-height:1.7;margin-bottom:48px;font-weight:300;}
+.hero-kpis{display:flex;gap:48px;flex-wrap:wrap;justify-content:center;}
+.hero-kpi{text-align:center;}
+.hero-kpi-val{font-family:var(--font);font-size:clamp(28px,4vw,42px);font-weight:800;color:var(--blue);letter-spacing:-1px;transition:all .45s;}
+.hero-kpi-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#64748b;margin-top:4px;}
+.scroll-hint{position:absolute;bottom:32px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);animation:bounce 2s infinite;}
+.scroll-hint::after{content:'↓';font-size:18px;color:var(--blue);opacity:.6;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+/* CHAPTERS */
+.chapter{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 6vw;position:relative;max-width:1400px;margin:0 auto;}
+.chapter-num{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue2);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.chapter-num::before{content:'';display:inline-block;width:28px;height:1px;background:var(--blue2);}
+.chapter-headline{font-family:var(--font);font-size:clamp(30px,5vw,60px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:16px;}
+.chapter-headline em{font-style:normal;color:var(--blue2);}
+.chapter-lead{font-size:clamp(13px,1.4vw,16px);color:#475569;max-width:580px;line-height:1.75;margin-bottom:38px;font-weight:300;}
+.chapter-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(37,99,235,.25),transparent);}
+
+/* KPI CARDS */
+.kpi-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;}
+.kpi-blue{background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2);border-radius:12px;padding:16px 20px;min-width:145px;flex:1;max-width:220px;position:relative;overflow:hidden;transition:all .3s;}
+.kpi-blue::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),#60a5fa);}
+.kpi-blue:hover{border-color:rgba(59,130,246,.6);transform:translateY(-3px);box-shadow:0 12px 40px rgba(26,108,240,.2);}
+.kpi-blue .kval{font-family:var(--font);font-size:clamp(18px,2.5vw,26px);font-weight:800;color:var(--blue2);letter-spacing:-.5px;line-height:1;transition:all .4s;}
+.kpi-blue .klabel{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:7px;}
+.kpi-blue .ksub{font-size:11px;color:var(--muted);margin-top:4px;font-weight:300;}
+.kpi-blue .kdelta{display:inline-block;font-size:10px;padding:2px 7px;border-radius:20px;background:rgba(5,150,105,.1);color:var(--green);font-weight:600;margin-top:5px;}
+.kpi-blue .kdelta.neg{background:rgba(220,38,38,.1);color:var(--red);}
+.kpi-blue .kdelta.neutral{background:rgba(100,116,139,.12);color:var(--muted);}
+.kpi-gold{background:rgba(217,119,6,.06);border:1px solid rgba(217,119,6,.2);border-radius:12px;padding:16px 20px;min-width:145px;flex:1;max-width:220px;transition:all .3s;position:relative;overflow:hidden;}
+.kpi-gold::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#f59e0b,#fcd34d);}
+.kpi-gold .kval{font-family:var(--font);font-size:clamp(18px,2.5vw,26px);font-weight:800;color:var(--gold);letter-spacing:-.5px;line-height:1;transition:all .4s;}
+.kpi-gold .klabel{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,158,11,.7);margin-top:7px;}
+.kpi-gold .ksub{font-size:11px;color:var(--muted);margin-top:4px;font-weight:300;}
+.kpi-gold .kdelta{display:inline-block;font-size:10px;padding:2px 7px;border-radius:20px;background:rgba(245,158,11,.1);color:var(--gold);font-weight:600;margin-top:5px;}
+.kpi-green{background:rgba(5,150,105,.06);border:1px solid rgba(5,150,105,.2);border-radius:12px;padding:16px 20px;min-width:145px;flex:1;max-width:220px;transition:all .3s;position:relative;overflow:hidden;}
+.kpi-green::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10b981,#34d399);}
+.kpi-green .kval{font-family:var(--font);font-size:clamp(18px,2.5vw,26px);font-weight:800;color:var(--green);letter-spacing:-.5px;line-height:1;transition:all .4s;}
+.kpi-green .klabel{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(16,185,129,.6);margin-top:7px;}
+.kpi-green .ksub{font-size:11px;color:var(--muted);margin-top:4px;font-weight:300;}
+.kpi-green .kdelta{display:inline-block;font-size:10px;padding:2px 7px;border-radius:20px;background:rgba(5,150,105,.1);color:var(--green);font-weight:600;margin-top:5px;}
+
+/* CHART CARDS */
+.chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:22px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.06);}
+.chart-card-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.chart-card-sub{font-size:11px;color:rgba(71,85,105,.8);margin-bottom:16px;}
+
+/* LAYOUTS */
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start;}
+.col-wide-left{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:center;}
+.col-wide-right{display:grid;grid-template-columns:1fr 1.4fr;gap:24px;align-items:center;}
+
+/* ANNOTATION */
+.annotation{background:rgba(37,99,235,.06);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:13px 16px;margin:18px 0;font-size:12px;color:var(--muted);line-height:1.7;font-style:italic;}
+.annotation strong{color:var(--blue2);font-style:normal;}
+.annotation.green{background:rgba(5,150,105,.06);border-color:var(--green);}
+.annotation.green strong{color:var(--green);}
+.annotation.gold{background:rgba(217,119,6,.06);border-color:var(--gold);}
+.annotation.gold strong{color:var(--gold);}
+
+/* DSO TABLE */
+.dso-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:10px;}
+.dso-table th{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:7px 10px;text-align:right;border-bottom:1px solid var(--border);}
+.dso-table th:first-child{text-align:left;}
+.dso-table td{padding:7px 10px;text-align:right;color:var(--text);border-bottom:1px solid rgba(0,0,0,.05);}
+.dso-table td:first-child{text-align:left;color:var(--muted);}
+.dso-table tr.hl td{color:var(--blueL);font-weight:600;background:rgba(37,99,235,.07);}
+.dso-table tr.hl-green td{color:#065f46;font-weight:600;background:rgba(5,150,105,.07);}
+
+/* DEBT BARS */
+.debt-bar-wrap{margin-bottom:12px;}
+.debt-bar-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;}
+.debt-bar-track{height:7px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden;}
+.debt-bar-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+
+/* USE LEGEND */
+.use-legend{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+.use-item{display:flex;align-items:center;gap:8px;}
+.use-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.use-name{font-size:11px;color:var(--muted);flex:1;}
+.use-val{font-size:12px;font-weight:700;color:var(--text);}
+.use-pct{font-size:10px;color:var(--muted);margin-left:3px;}
+
+/* BU CARDS */
+.bu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.bu-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg2);box-shadow:0 1px 8px rgba(0,0,0,.06);transition:all .3s;}
+.bu-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(26,108,240,.12);}
+.bu-hdr{padding:16px 18px;position:relative;overflow:hidden;}
+.bu-hdr::after{content:'';position:absolute;bottom:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.08);}
+.bu-hdr h3{font-size:13px;font-weight:700;color:white;margin-bottom:2px;}
+.bu-hdr p{font-size:10px;color:rgba(255,255,255,.75);letter-spacing:.5px;text-transform:uppercase;}
+.bu1 .bu-hdr{background:linear-gradient(135deg,#1d4ed8,#2563eb);}
+.bu2 .bu-hdr{background:linear-gradient(135deg,#065f46,#059669);}
+.bu3 .bu-hdr{background:linear-gradient(135deg,#5b21b6,#7c3aed);}
+.bu-body{padding:14px 18px;}
+.bu-metric{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:12px;}
+.bu-metric:last-child{border-bottom:none;}
+.bu-metric .bm-label{color:var(--muted);}
+.bu-metric .bm-val{font-weight:700;color:var(--text);}
+.bu-bar{height:3px;border-radius:2px;margin-top:10px;}
+
+/* EV PODIUM */
+.ev-podium{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:12px;margin-top:26px;}
+.ev-block{border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:20px;text-align:center;transition:all .3s;box-shadow:0 1px 6px rgba(0,0,0,.05);background:var(--bg2);}
+.ev-block.star{border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.07);transform:translateY(-8px);box-shadow:0 12px 40px rgba(37,99,235,.15);}
+.ev-block .ev-wacc{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.ev-block .ev-val{font-family:var(--font);font-size:clamp(24px,3.5vw,38px);font-weight:800;letter-spacing:-2px;transition:all .45s;color:var(--text);}
+.ev-block.star .ev-val{color:var(--blue);}
+.ev-block .ev-unit{font-size:11px;color:var(--muted);margin-top:3px;}
+.ev-block .ev-mult{margin-top:8px;font-size:12px;color:var(--gold);font-weight:600;}
+.ev-block .ev-waccval{margin-top:5px;font-size:10px;color:var(--muted);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+.reveal-delay-4{transition-delay:.4s;}
+.reveal-delay-5{transition-delay:.5s;}
+
+/* SCENARIO NARRATIVE */
+.sc-narrative{border-radius:10px;padding:14px 18px;font-size:12.5px;line-height:1.75;margin-bottom:28px;font-weight:300;transition:all .35s ease;}
+.sc-narrative.real{background:rgba(37,99,235,.07);border-left:3px solid var(--blue2);color:#1e3a8a;}
+.sc-narrative.opt{background:rgba(5,150,105,.07);border-left:3px solid var(--green);color:#065f46;}
+.sc-narrative.pes{background:rgba(220,38,38,.07);border-left:3px solid var(--red);color:#991b1b;}
+.sc-narrative strong{font-weight:700;}
+
+/* CF BRIDGE ROW */
+.bridge-row{display:flex;align-items:center;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:12px;}
+.bridge-row:last-child{border-bottom:none;font-weight:700;font-size:13px;}
+.bridge-row .br-label{flex:1;color:var(--muted);}
+.bridge-row .br-bar{flex:2;height:5px;border-radius:3px;margin:0 12px;}
+.bridge-row .br-val{width:70px;text-align:right;font-weight:600;}
+
+/* PVM SUBSECTION */
+.pvm-headline{font-family:var(--font);font-size:clamp(22px,3.2vw,40px);font-weight:800;line-height:1.08;letter-spacing:-1.5px;margin-bottom:12px;color:var(--text);}
+.pvm-headline em{font-style:normal;color:var(--blue2);}
+.section-sep{height:1px;background:linear-gradient(90deg,transparent,rgba(37,99,235,.2),transparent);margin:48px 0 40px;}
+
+/* PVM TABLE */
+.pvm-table{width:100%;border-collapse:collapse;font-size:11px;}
+.pvm-table th{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;}
+.pvm-table th:first-child{text-align:left;}
+.pvm-table td{padding:8px 12px;text-align:right;border-bottom:1px solid rgba(0,0,0,.04);}
+.pvm-table td:first-child{text-align:left;font-weight:600;color:var(--text);}
+.pvm-table tr.pvm-total td{font-weight:700;background:rgba(37,99,235,.06);color:var(--blueL);border-top:1.5px solid rgba(37,99,235,.25);}
+.pvm-price{color:rgba(26,108,240,.95);font-weight:700;}
+.pvm-vol{color:rgba(5,150,105,.95);font-weight:700;}
+.pvm-mix{color:rgba(217,119,6,.95);font-weight:700;}
+.pvm-total-delta{color:var(--text);font-weight:700;}
+
+/* TICKET BLOCKS */
+.ticket-insight{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0 0;}
+.ticket-block{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;transition:all .3s;}
+.ticket-block:hover{border-color:rgba(37,99,235,.35);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,108,240,.1);}
+.ticket-block .tb-val{font-size:18px;font-weight:800;letter-spacing:-.5px;line-height:1.1;}
+.ticket-block .tb-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+.ticket-block .tb-sub{font-size:10px;color:var(--muted);margin-top:3px;font-weight:300;}
+
+/* EFFECT BADGE INLINE */
+.effect-badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.effect-badge.price{background:rgba(26,108,240,.1);color:var(--blue2);}
+.effect-badge.vol{background:rgba(5,150,105,.1);color:var(--green);}
+.effect-badge.mix{background:rgba(217,119,6,.1);color:var(--gold);}
+
+@media(max-width:900px){
+  .cols2,.col-wide-left,.col-wide-right,.cols3{grid-template-columns:1fr;}
+  .ev-podium{grid-template-columns:1fr;}
+  .ev-block.star{transform:none;}
+  .bu-grid{grid-template-columns:1fr;}
+  .ticket-insight{grid-template-columns:repeat(3,1fr);}
+  #nav-dots{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- SCENARIO SWITCHER -->
+<div id="scenario-bar">
+  <span class="sc-label">Escenario</span>
+  <button class="sc-btn opt" onclick="setScenario('opt')">🟢 Optimista</button>
+  <button class="sc-btn real active" onclick="setScenario('real')">🔵 Realista</button>
+  <button class="sc-btn pes" onclick="setScenario('pes')">🔴 Pesimista</button>
+</div>
+
+<!-- NAV DOTS -->
+<div id="nav-dots">
+  <div class="nav-dot active" title="Intro" onclick="scrollToSection(0)"></div>
+  <div class="nav-dot" title="Punto de partida" onclick="scrollToSection(1)"></div>
+  <div class="nav-dot" title="Crecimiento" onclick="scrollToSection(2)"></div>
+  <div class="nav-dot" title="Rentabilidad" onclick="scrollToSection(3)"></div>
+  <div class="nav-dot" title="Working Capital" onclick="scrollToSection(4)"></div>
+  <div class="nav-dot" title="Caja & Usos" onclick="scrollToSection(5)"></div>
+  <div class="nav-dot" title="Business Units" onclick="scrollToSection(6)"></div>
+  <div class="nav-dot" title="Balance & Deuda" onclick="scrollToSection(7)"></div>
+  <div class="nav-dot" title="Valoración" onclick="scrollToSection(8)"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- HERO                                           -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s0" style="background:#f0f4fd;">
+  <div id="hero">
+    <p class="hero-eyebrow">Business Plan Consolidado · 3 BUs · 2026–2031</p>
+    <h1 class="hero-title">Un grupo que<span class="accent">genera caja.</span></h1>
+    <p class="hero-subtitle">Tres unidades de negocio en restauración y delivery, márgenes en expansión constante, deuda amortizada al 100% en 2030. Aquí está la historia completa — cambia el escenario para ver cómo se mueve todo.</p>
+    <div class="hero-kpis">
+      <div class="hero-kpi">
+        <div class="hero-kpi-val" id="h-rev">€6.39M</div>
+        <div class="hero-kpi-label">Revenue 2026</div>
+      </div>
+      <div class="hero-kpi" style="border-left:1px solid rgba(0,0,0,.1);border-right:1px solid rgba(0,0,0,.1);padding:0 48px;">
+        <div class="hero-kpi-val" id="h-ebitda">€473k</div>
+        <div class="hero-kpi-label">EBITDA 2026</div>
+      </div>
+      <div class="hero-kpi">
+        <div class="hero-kpi-val" id="h-ev">€5.44M</div>
+        <div class="hero-kpi-label">EV Mid Range</div>
+      </div>
+    </div>
+    <div class="scroll-hint">Desplaza</div>
+  </div>
+</section>
+
+<div class="chapter-divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAP 01 — PUNTO DE PARTIDA                     -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s1" style="background:var(--bg);">
+  <div class="chapter">
+    <p class="chapter-num reveal">01 — El punto de partida</p>
+    <h2 class="chapter-headline reveal reveal-delay-1">Un grupo <em>ya rentable</em><br>que proyecta desde<br>posición de fuerza.</h2>
+    <p class="chapter-lead reveal reveal-delay-2">En 2026 el negocio consolida tres BUs operativas con €6.4M de ingresos, margen bruto estable del 60.7% y EBITDA positivo desde el arranque. El modelo no requiere un turnaround: la base ya funciona y escala.</p>
+
+    <div class="sc-narrative real reveal reveal-delay-2" id="narr-01"></div>
+
+    <div class="kpi-row reveal reveal-delay-3">
+      <div class="kpi-blue">
+        <div class="kval" id="k1-rev">€6.39M</div>
+        <div class="klabel">Revenue 2026</div>
+        <div class="ksub">3 BUs consolidadas</div>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k1-gm">60.7%</div>
+        <div class="klabel">Margen Bruto</div>
+        <div class="ksub">Gross Profit / Revenue</div>
+        <span class="kdelta neutral">Estructuralmente estable</span>
+      </div>
+      <div class="kpi-gold">
+        <div class="kval" id="k1-eb">€473k</div>
+        <div class="klabel">EBITDA 2026</div>
+        <div class="ksub" id="k1-ebm">7.4% sobre revenue</div>
+        <span class="kdelta">Expansión hasta 10.8% en '31</span>
+      </div>
+      <div class="kpi-green">
+        <div class="kval" id="k1-fcf">€550k</div>
+        <div class="klabel">Free Cash Flow 2026</div>
+        <div class="ksub" id="k1-conv">116% conversión EBITDA</div>
+        <span class="kdelta">Impulso WK año 1</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k1-gp">€3.88M</div>
+        <div class="klabel">Gross Profit 2026</div>
+        <div class="ksub">Revenue − COGs</div>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-4">
+      <div class="chart-card">
+        <div class="chart-card-title">Estructura de Revenue 2026</div>
+        <div class="chart-card-sub">Canal Restaurante vs Food Delivery</div>
+        <canvas id="c1_channel" style="max-height:230px;"></canvas>
+      </div>
+      <div>
+        <div class="chart-card" style="margin-bottom:12px;">
+          <div class="chart-card-title">Cascada P&L 2026 · k€</div>
+          <div class="chart-card-sub">De Revenue a EBITDA</div>
+          <canvas id="c1_waterfall" style="max-height:210px;"></canvas>
+        </div>
+        <div class="annotation">Con un <strong>margen bruto estable al 60.7%</strong> y una estructura de costes donde el 63% es variable o cuasivariable, el modelo tiene un <strong>apalancamiento operativo implícito de ~0.25€ de EBITDA incremental por cada euro de revenue adicional</strong>. Esto significa que crecer un 1% en ingresos mejora el margen EBITDA en ~18bps.</div>
+      </div>
+    </div>
+
+    <!-- ══ P/V/M DECOMPOSITION ══ -->
+    <div class="section-sep reveal"></div>
+
+    <p class="chapter-num reveal">01b — Descomposición del crecimiento</p>
+    <h3 class="pvm-headline reveal reveal-delay-1">¿De dónde viene el <em>+3.9% CAGR</em>?<br>Precio · Volumen · Mix.</h3>
+    <p class="chapter-lead reveal reveal-delay-2" style="margin-bottom:18px;">Diseccionar el crecimiento en sus tres motores es una obligación analítica antes de fijar objetivos operativos. El <span class="effect-badge price">precio</span> depende del entorno macro y del poder de fijación sobre la carta. El <span class="effect-badge vol">volumen</span> depende de la gestión comercial y el tráfico. El <span class="effect-badge mix">mix</span> — el más valioso — depende exclusivamente del equipo: es el uplift generado por vender más bebidas, postres y complementos a los clientes que ya están en el local. Sin coste de adquisición, con margen bruto del 60%+.</p>
+
+    <div class="sc-narrative real reveal reveal-delay-2" id="narr-pvm"></div>
+
+    <div class="kpi-row reveal reveal-delay-3">
+      <div class="kpi-blue">
+        <div class="kval" id="kpvm-price">2.0%/año</div>
+        <div class="klabel">Efecto Precio</div>
+        <div class="ksub" id="kpvm-price-abs">~€134k/año promedio</div>
+        <span class="kdelta neutral">IPC + revisión de carta</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="kpvm-vol">1.0%/año</div>
+        <div class="klabel">Efecto Volumen</div>
+        <div class="ksub" id="kpvm-vol-abs">~€66k/año promedio</div>
+        <span class="kdelta">Servicios/día + occupancy</span>
+      </div>
+      <div class="kpi-gold">
+        <div class="kval" id="kpvm-mix">1.0%/año</div>
+        <div class="klabel">Efecto Mix</div>
+        <div class="ksub" id="kpvm-mix-abs">~€62k/año promedio</div>
+        <span class="kdelta">Upsell bebidas &amp; postres</span>
+      </div>
+      <div class="kpi-green">
+        <div class="kval" id="kpvm-ticket">+24%</div>
+        <div class="klabel">Ticket Medio 2026→2031</div>
+        <div class="ksub" id="kpvm-ticket-sub">€10.65 → €13.22</div>
+        <span class="kdelta">Precio + attached rate</span>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-4">
+      <div class="chart-card">
+        <div class="chart-card-title">Bridge de crecimiento anual · Precio · Volumen · Mix</div>
+        <div class="chart-card-sub">Δ revenue vs año anterior desglosado en 3 efectos · k€ · línea: ticket medio €</div>
+        <canvas id="c1_pvm" style="max-height:250px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Evolución del mix de producto · % sobre revenue total</div>
+        <div class="chart-card-sub">Las bebidas y postres ganan share — motor del efecto mix</div>
+        <canvas id="c1_mix" style="max-height:250px;"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card reveal reveal-delay-5" style="margin-top:16px;">
+      <div class="chart-card-title">Tabla detalle P · V · M — Bridge anual de revenue · k€</div>
+      <div class="chart-card-sub">Escenario activo · Δ vs año anterior descompuesto</div>
+      <table class="pvm-table">
+        <thead>
+          <tr>
+            <th style="text-align:left;">Año</th>
+            <th>Rev. Año Ant.</th>
+            <th>Δ Precio</th>
+            <th>Δ Volumen</th>
+            <th>Δ Mix</th>
+            <th>Δ Total</th>
+            <th>Rev. Año</th>
+            <th>Ticket €</th>
+          </tr>
+        </thead>
+        <tbody id="pvmTableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="ticket-insight reveal reveal-delay-5">
+      <div class="ticket-block">
+        <div class="tb-val" style="color:var(--blue2);" id="tk-2026">€10.65</div>
+        <div class="tb-label">Ticket 2026</div>
+        <div class="tb-sub">Base de partida</div>
+      </div>
+      <div class="ticket-block">
+        <div class="tb-val" style="color:var(--blue2);" id="tk-price-up">+€1.11</div>
+        <div class="tb-label">Efecto Precio</div>
+        <div class="tb-sub" id="tk-price-pct">IPC 2%/año × 5</div>
+      </div>
+      <div class="ticket-block">
+        <div class="tb-val" style="color:var(--gold);" id="tk-mix-up">+€1.46</div>
+        <div class="tb-label">Efecto Mix</div>
+        <div class="tb-sub">Attached items upsell</div>
+      </div>
+      <div class="ticket-block" style="border-color:rgba(5,150,105,.3);background:rgba(5,150,105,.05);">
+        <div class="tb-val" style="color:var(--green);" id="tk-2031">€13.22</div>
+        <div class="tb-label">Ticket 2031</div>
+        <div class="tb-sub" id="tk-growth">+24% en 5 años</div>
+      </div>
+      <div class="ticket-block">
+        <div class="tb-val" style="color:var(--gold);" id="tk-drinks">+1.0pp</div>
+        <div class="tb-label">Bebidas / Rev</div>
+        <div class="tb-sub" id="tk-drinks-sub">6.3% → 7.3%</div>
+      </div>
+      <div class="ticket-block">
+        <div class="tb-val" style="color:var(--gold);" id="tk-desserts">+0.7pp</div>
+        <div class="tb-label">Postres / Rev</div>
+        <div class="tb-sub" id="tk-desserts-sub">9.2% → 9.9%</div>
+      </div>
+    </div>
+
+    <div class="annotation gold reveal reveal-delay-5" style="margin-top:16px;"><strong>Insight de CFO:</strong> El efecto mix es la única palanca de crecimiento 100% gestionable internamente. Precio depende del mercado; volumen depende del tráfico. Pero la <strong>tasa de adherencia de bebidas y postres</strong> — actualmente en 0.30 y 0.35 por servicio respectivamente — puede mejorarse con formación comercial del equipo de sala sin ningún coste incremental de marketing o Capex. Un 5% de mejora en la tasa de adherencia de postres genera ~€38k adicionales de revenue/año al 60%+ de margen bruto.</div>
+  </div>
+</section>
+
+<div class="chapter-divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAP 02 — CRECIMIENTO                          -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s2" style="background:linear-gradient(180deg,#eef1f6 0%,#ffffff 50%,#eef1f6 100%);">
+  <div class="chapter">
+    <p class="chapter-num reveal">02 — Crecimiento</p>
+    <h2 class="chapter-headline reveal reveal-delay-1">Revenue que avanza<br><em>sin interrupciones:</em><br>€6.4M → €7.7M.</h2>
+    <p class="chapter-lead reveal reveal-delay-2">El crecimiento está impulsado por revisiones de precio en línea con IPC, maduración del canal delivery y consolidación de la base de clientes del restaurante. Un modelo sin dependencia de capex adicional.</p>
+
+    <div class="sc-narrative real reveal reveal-delay-2" id="narr-02"></div>
+
+    <div class="kpi-row reveal reveal-delay-3">
+      <div class="kpi-blue">
+        <div class="kval" id="k2-cagr">~3.9%</div>
+        <div class="klabel">CAGR Revenue</div>
+        <div class="ksub">Crecimiento anual compuesto</div>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k2-total">+21%</div>
+        <div class="klabel">Crecimiento total</div>
+        <div class="ksub" id="k2-sub">€6.39M → €7.73M</div>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k2-rest31">€7.24M</div>
+        <div class="klabel">Revenue Restaurant 2031</div>
+        <div class="ksub">Canal principal ~93.6%</div>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k2-del31">€495k</div>
+        <div class="klabel">Revenue Delivery 2031</div>
+        <div class="ksub">Crecimiento sostenido</div>
+        <span class="kdelta">+21% vs 2026</span>
+      </div>
+    </div>
+
+    <div class="chart-card reveal reveal-delay-4">
+      <div class="chart-card-title">Evolución de Revenue Consolidado — Restaurant vs Food Delivery</div>
+      <div class="chart-card-sub">2026–2031 · k€ · Barras apiladas por canal</div>
+      <canvas id="c2_revenue" style="max-height:280px;"></canvas>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAP 03 — RENTABILIDAD                         -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s3" style="background:var(--bg);">
+  <div class="chapter">
+    <p class="chapter-num reveal">03 — Rentabilidad</p>
+    <h2 class="chapter-headline reveal reveal-delay-1">El margen EBITDA<br>pasa de <em id="k3-em26">7.4%</em><br>a <em id="k3-em31">10.8%</em>.</h2>
+    <p class="chapter-lead reveal reveal-delay-2">No es solo que el grupo crezca — es que cada euro de revenue <em>vale más</em> con el tiempo. El apalancamiento operativo hace el trabajo: el peso del personal cae 3.2pp mientras los ingresos crecen un 21%.</p>
+
+    <div class="sc-narrative real reveal reveal-delay-2" id="narr-03"></div>
+
+    <div class="kpi-row reveal reveal-delay-3">
+      <div class="kpi-blue">
+        <div class="kval" id="k3-expand">+340 bps</div>
+        <div class="klabel">Expansión EBITDA Margin</div>
+        <div class="ksub" id="k3-expandsub">7.4% → 10.8% (2026–2031)</div>
+        <span class="kdelta">Apalancamiento operativo</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k3-pers-drop">−320 bps</div>
+        <div class="klabel">Personal / Revenue</div>
+        <div class="ksub" id="k3-pers-sub">37.2% → 34.0%</div>
+        <span class="kdelta">Principal palanca</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k3-gm">60.7%</div>
+        <div class="klabel">Gross Margin</div>
+        <div class="ksub">Estable todo el periodo</div>
+        <span class="kdelta neutral">Pricing power sólido</span>
+      </div>
+      <div class="kpi-gold">
+        <div class="kval" id="k3-eb31">€835k</div>
+        <div class="klabel">EBITDA 2031</div>
+        <div class="ksub" id="k3-eb26sub">Desde €473k en 2026</div>
+        <span class="kdelta">+76% en 5 años</span>
+      </div>
+    </div>
+
+    <div class="col-wide-left reveal reveal-delay-4">
+      <div class="chart-card">
+        <div class="chart-card-title">EBITDA y evolución de márgenes</div>
+        <div class="chart-card-sub">Barras = EBITDA k€ · Líneas = % sobre revenue</div>
+        <canvas id="c3_ebitda" style="max-height:270px;"></canvas>
+      </div>
+      <div>
+        <div class="chart-card">
+          <div class="chart-card-title">Costes como % Revenue</div>
+          <div class="chart-card-sub">2026 vs 2031 · comparativa de eficiencia</div>
+          <canvas id="c3_costs" style="max-height:200px;"></canvas>
+        </div>
+        <div class="annotation" style="margin-top:12px;">El <strong>personal</strong> es el motor de mejora de margen: pasa del 37.2% al 34.0%, liberando 320 bps que se convierten directamente en EBITDA adicional sin recortar calidad.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAP 04 — WORKING CAPITAL & DSO                -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s4" style="background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 50%,var(--bg) 100%);">
+  <div class="chapter">
+    <p class="chapter-num reveal">04 — Working Capital & DSO</p>
+    <h2 class="chapter-headline reveal reveal-delay-1">Cobra en <em>13 días.</em><br>WK estructuralmente<br>positivo desde 2026.</h2>
+    <p class="chapter-lead reveal reveal-delay-2">El grupo tiene una posición de circulante privilegiada: DSO de 13.4 días con AP de €396k vs AR de €237k. En 2026 la normalización del WK libera €311k extraordinarios. Desde 2027, el WK contribuye un flujo estable de ~€8-10k anuales.</p>
+
+    <div class="sc-narrative real reveal reveal-delay-2" id="narr-04"></div>
+
+    <div class="kpi-row reveal reveal-delay-3">
+      <div class="kpi-blue">
+        <div class="kval">13.4 días</div>
+        <div class="klabel">DSO Total Consolidado</div>
+        <div class="ksub">Cobro muy rápido</div>
+        <span class="kdelta">Estable 2026–2031</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval">13.6 días</div>
+        <div class="klabel">DSO Restaurante</div>
+        <div class="ksub">Contrato cliente estable</div>
+        <span class="kdelta neutral">Top-3 clientes: 83%</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval">9.1 días</div>
+        <div class="klabel">DSO Food Delivery</div>
+        <div class="ksub">Plataformas pagan rápido</div>
+        <span class="kdelta">Mejor que restaurante</span>
+      </div>
+      <div class="kpi-green">
+        <div class="kval">€311k</div>
+        <div class="klabel">Liberación WK 2026</div>
+        <div class="ksub">Impulso extraordinario de caja</div>
+        <span class="kdelta">Normalización año 1</span>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-4" style="margin-bottom:18px;">
+      <div class="chart-card">
+        <div class="chart-card-title">Saldos de Working Capital · k€</div>
+        <div class="chart-card-sub">AR · AP · Inventario — evolución 2026–2031</div>
+        <canvas id="c4_wk" style="max-height:240px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Variación anual de WK (impacto en caja)</div>
+        <div class="chart-card-sub">Positivo = libera caja · Negativo = consume caja · k€</div>
+        <canvas id="c4_wkvar" style="max-height:240px;"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card reveal reveal-delay-4">
+      <div class="chart-card-title">Detalle DSO & Bridge WK → Operating Cash Flow · k€ · 2026–2031</div>
+      <div class="chart-card-sub">Datos consolidados del modelo base</div>
+      <table class="dso-table">
+        <thead>
+          <tr><th>Concepto</th><th>2026</th><th>2027</th><th>2028</th><th>2029</th><th>2030</th><th>2031</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hl"><td>AR Balance (k€)</td><td>237.1</td><td>247.0</td><td>257.2</td><td>266.2</td><td>276.3</td><td>286.7</td></tr>
+          <tr><td>DSO Total (días)</td><td>13.4</td><td>13.4</td><td>13.4</td><td>13.4</td><td>13.4</td><td>13.4</td></tr>
+          <tr><td> — DSO Restaurante</td><td>13.6</td><td>13.6</td><td>13.6</td><td>13.6</td><td>13.6</td><td>13.6</td></tr>
+          <tr><td> — DSO Food Delivery</td><td>9.1</td><td>9.1</td><td>9.1</td><td>9.1</td><td>9.1</td><td>9.1</td></tr>
+          <tr class="hl-green"><td>AP Balance (k€)</td><td>395.6</td><td>412.4</td><td>428.2</td><td>444.3</td><td>461.4</td><td>479.9</td></tr>
+          <tr><td>Inventario (k€)</td><td>32.9</td><td>33.4</td><td>33.9</td><td>34.2</td><td>34.5</td><td>34.8</td></tr>
+          <tr><td>Personal accruals (k€)</td><td>174.3</td><td>177.8</td><td>181.3</td><td>185.0</td><td>188.7</td><td>192.4</td></tr>
+          <tr class="hl"><td>WK Neto (AP−AR, k€)</td><td>+158.5</td><td>+165.4</td><td>+171.0</td><td>+178.1</td><td>+185.1</td><td>+193.2</td></tr>
+          <tr class="hl-green"><td>Δ WK (impacto caja, k€)</td><td>+311</td><td>+9</td><td>+8</td><td>+10</td><td>+10</td><td>+11</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="annotation reveal reveal-delay-4" style="margin-top:16px;">Con <strong>AP de €396k vs AR de €237k</strong>, el grupo tiene WK neto positivo de +€159k en 2026: paga a proveedores más tarde de lo que cobra a clientes. Esta <strong>ventaja estructural</strong> reduce permanentemente las necesidades de financiación corriente y actúa como amortiguador en escenarios adversos.</div>
+  </div>
+</section>
+
+<div class="chapter-divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAP 05 — CAJA & USOS                          -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s5" style="background:var(--bg);">
+  <div class="chapter">
+    <p class="chapter-num reveal">05 — Generación y usos de caja</p>
+    <h2 class="chapter-headline reveal reveal-delay-1">La caja trabaja en<br><em>tres frentes:</em><br>crecer, pagar y liberar.</h2>
+    <p class="chapter-lead reveal reveal-delay-2">Con €550k–€432k de FCF anual, el grupo destina su caja de forma disciplinada. En 2030 la deuda bancaria desaparece por completo y el 100% del FCF queda disponible para accionistas o reinversión.</p>
+
+    <div class="sc-narrative real reveal reveal-delay-2" id="narr-05"></div>
+
+    <div class="kpi-row reveal reveal-delay-3">
+      <div class="kpi-blue">
+        <div class="kval" id="k5-fcf26">€550k</div>
+        <div class="klabel">FCF 2026</div>
+        <div class="ksub" id="k5-conv">116% conversión EBITDA</div>
+        <span class="kdelta">Impulso WK año 1</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k5-fcf31">€432k</div>
+        <div class="klabel">FCF 2031</div>
+        <div class="ksub">Normalizado y creciente</div>
+        <span class="kdelta">Libre de deuda</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval">€194k</div>
+        <div class="klabel">Capex medio anual</div>
+        <div class="ksub">~2.8% del revenue</div>
+        <span class="kdelta neutral">Sostenible</span>
+      </div>
+      <div class="kpi-green">
+        <div class="kval" id="k5-cashEq31">€205k</div>
+        <div class="klabel">Cash p/ equity 2031</div>
+        <div class="ksub">Libre de deuda desde 2030</div>
+        <span class="kdelta">Aceleración de retorno</span>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-4">
+      <div class="chart-card">
+        <div class="chart-card-title">Operating CF vs Free Cash Flow vs Cash Equity</div>
+        <div class="chart-card-sub">2026–2031 · k€</div>
+        <canvas id="c5_cf" style="max-height:240px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Usos de caja acumulados 2026–2031</div>
+        <div class="chart-card-sub">Total consolidado · k€</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;">
+          <canvas id="c5_uses" style="max-height:200px;"></canvas>
+          <div class="use-legend" id="use-legend"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-4" style="margin-top:20px;">
+      <div class="chart-card">
+        <div class="chart-card-title">Bridge EBITDA → Operating CF 2026</div>
+        <div class="chart-card-sub">EBITDA + ΔWK − CIT − Capex = FCF · k€</div>
+        <canvas id="c5_bridge" style="max-height:200px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Usos de caja anuales por destino</div>
+        <div class="chart-card-sub">Amort. Deuda · Intereses · Capex · Impuestos · k€</div>
+        <canvas id="c5_usesyr" style="max-height:200px;"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAP 06 — BUSINESS UNITS                       -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s6" style="background:linear-gradient(180deg,#eef1f6 0%,#ffffff 50%,#eef1f6 100%);">
+  <div class="chapter">
+    <p class="chapter-num reveal">06 — Business Units</p>
+    <h2 class="chapter-headline reveal reveal-delay-1">Tres motores.<br><em>Un solo resultado:</em><br>escalabilidad.</h2>
+    <p class="chapter-lead reveal reveal-delay-2">Cada BU aporta ~€2.1M de revenue con márgenes EBITDA unitarios del 17.5% antes de costes de HQ. La centralización de servicios (royalties, IT, marketing) garantiza eficiencia de escala sin duplicar estructura. El peso de HQ (~€646k) es la diferencia entre el margen unitario y el consolidado.</p>
+
+    <div class="sc-narrative real reveal reveal-delay-2" id="narr-06"></div>
+
+    <div class="bu-grid reveal reveal-delay-3">
+      <div class="bu-card bu1">
+        <div class="bu-hdr">
+          <h3>🍽️ Business Unit 1</h3>
+          <p>Núcleo restauración · Canal presencial</p>
+        </div>
+        <div class="bu-body">
+          <div class="bu-metric"><span class="bm-label">Revenue 2026</span><span class="bm-val" id="bu1-rev">€2.13M</span></div>
+          <div class="bu-metric"><span class="bm-label">EBITDA 2026</span><span class="bm-val" id="bu1-eb">€373k</span></div>
+          <div class="bu-metric"><span class="bm-label">Margen EBITDA</span><span class="bm-val">17.5%</span></div>
+          <div class="bu-metric"><span class="bm-label">Gross Margin</span><span class="bm-val">60.7%</span></div>
+          <div class="bu-metric"><span class="bm-label">Revenue 2031</span><span class="bm-val" id="bu1-rev31">€2.58M</span></div>
+          <div class="bu-bar" style="background:linear-gradient(90deg,rgba(37,99,235,.7),rgba(37,99,235,.15));"></div>
+        </div>
+      </div>
+      <div class="bu-card bu2">
+        <div class="bu-hdr">
+          <h3>🛵 Business Unit 2</h3>
+          <p>Expansión delivery · Crecimiento acelerado</p>
+        </div>
+        <div class="bu-body">
+          <div class="bu-metric"><span class="bm-label">Revenue 2026</span><span class="bm-val" id="bu2-rev">€2.13M</span></div>
+          <div class="bu-metric"><span class="bm-label">EBITDA 2026</span><span class="bm-val" id="bu2-eb">€373k</span></div>
+          <div class="bu-metric"><span class="bm-label">Margen EBITDA</span><span class="bm-val">17.5%</span></div>
+          <div class="bu-metric"><span class="bm-label">Mix Delivery</span><span class="bm-val">6.4%</span></div>
+          <div class="bu-metric"><span class="bm-label">Revenue 2031</span><span class="bm-val" id="bu2-rev31">€2.58M</span></div>
+          <div class="bu-bar" style="background:linear-gradient(90deg,rgba(5,150,105,.7),rgba(5,150,105,.15));"></div>
+        </div>
+      </div>
+      <div class="bu-card bu3">
+        <div class="bu-hdr">
+          <h3>⭐ Business Unit 3</h3>
+          <p>Mercados maduros · Rentabilidad estabilizada</p>
+        </div>
+        <div class="bu-body">
+          <div class="bu-metric"><span class="bm-label">Revenue 2026</span><span class="bm-val" id="bu3-rev">€2.13M</span></div>
+          <div class="bu-metric"><span class="bm-label">EBITDA 2026</span><span class="bm-val" id="bu3-eb">€373k</span></div>
+          <div class="bu-metric"><span class="bm-label">Margen EBITDA</span><span class="bm-val">17.5%</span></div>
+          <div class="bu-metric"><span class="bm-label">Top-3 Clientes</span><span class="bm-val">83%</span></div>
+          <div class="bu-metric"><span class="bm-label">Revenue 2031</span><span class="bm-val" id="bu3-rev31">€2.58M</span></div>
+          <div class="bu-bar" style="background:linear-gradient(90deg,rgba(124,58,237,.7),rgba(124,58,237,.15));"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-4">
+      <div class="chart-card">
+        <div class="chart-card-title">Contribución de BUs al Revenue Consolidado · k€</div>
+        <div class="chart-card-sub">Evolución 2026–2031 por unidad de negocio</div>
+        <canvas id="c6_bu" style="max-height:240px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">EBITDA BU vs EBITDA Consolidado</div>
+        <div class="chart-card-sub">Impacto de HQ y servicios centrales · k€</div>
+        <canvas id="c6_bu_ebitda" style="max-height:240px;"></canvas>
+      </div>
+    </div>
+
+    <div class="annotation reveal reveal-delay-4" style="margin-top:18px;"><strong>Estructura franquiciada:</strong> royalties, marketing central e IT central representan ~€652k en 2026 (+€10%/año) — el coste de pertenecer al grupo. A cambio, cada BU accede a escala de compra, tecnología y marca sin inversión propia. A partir de 2028 el múltiplo de escala empieza a reducir estos costes en % sobre revenue.</div>
+  </div>
+</section>
+
+<div class="chapter-divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAP 07 — BALANCE & DEUDA                      -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s7" style="background:var(--bg);">
+  <div class="chapter">
+    <p class="chapter-num reveal">07 — Balance & Desapalancamiento</p>
+    <h2 class="chapter-headline reveal reveal-delay-1">€1.6M de deuda<br><em>amortizada sola</em><br>en 4 años.</h2>
+    <p class="chapter-lead reveal reveal-delay-2">El plan de amortización es autosuficiente: la generación operativa paga íntegramente la deuda bancaria entre 2026 y 2030, sin necesidad de refinanciación. En 2031 el balance es prácticamente neto de deuda financiera.</p>
+
+    <div class="kpi-row reveal reveal-delay-3">
+      <div class="kpi-blue">
+        <div class="kval">€1.600M</div>
+        <div class="klabel">Deuda bancaria 2026</div>
+        <div class="ksub">LT + CP consolidada</div>
+        <span class="kdelta neg">Punto de partida</span>
+      </div>
+      <div class="kpi-green">
+        <div class="kval">€0k</div>
+        <div class="klabel">Deuda LT en 2030</div>
+        <div class="ksub">Amortización completada</div>
+        <span class="kdelta">4 años, sin refinanciación</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k7-roe31">11.5%</div>
+        <div class="klabel">ROE 2031</div>
+        <div class="ksub">Desde −6.6% en 2026</div>
+        <span class="kdelta">Recuperación total</span>
+      </div>
+      <div class="kpi-gold">
+        <div class="kval">€83k</div>
+        <div class="klabel">Intereses 2026</div>
+        <div class="ksub">→ €3k en 2031</div>
+        <span class="kdelta">−97% en el periodo</span>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-4">
+      <div>
+        <div class="chart-card" style="margin-bottom:16px;">
+          <div class="chart-card-title">Plan de amortización deuda bancaria</div>
+          <div class="chart-card-sub">Saldo deuda LT por año · LT Bank Loan</div>
+          <div id="debtBars" style="margin-top:4px;"></div>
+        </div>
+        <div class="annotation green"><strong>En 2030</strong> la deuda bancaria LT queda a cero. A partir de ahí, el servicio de deuda desaparece del estado de cash flow, acelerando el retorno al accionista.</div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Balance simplificado: Deuda vs Equity · k€</div>
+        <div class="chart-card-sub">Evolución del pasivo y fondos propios 2026–2031</div>
+        <canvas id="c7_balance" style="max-height:280px;"></canvas>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-5" style="margin-top:20px;">
+      <div class="chart-card">
+        <div class="chart-card-title">ROE y evolución de la deuda</div>
+        <div class="chart-card-sub">ROE % (línea izq.) · Deuda LT k€ (barras der.)</div>
+        <canvas id="c7_roe" style="max-height:220px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">FCF acumulado vs Deuda inicial</div>
+        <div class="chart-card-sub">El negocio genera suficiente caja para pagar toda la deuda y crear valor · k€</div>
+        <canvas id="c7_accum" style="max-height:220px;"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAP 08 — VALORACIÓN                           -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="s8" style="background:linear-gradient(180deg,#eef1f6 0%,#ffffff 80%);">
+  <div class="chapter">
+    <p class="chapter-num reveal">08 — Valoración & Retorno</p>
+    <h2 class="chapter-headline reveal reveal-delay-1">Un negocio que vale<br><em id="k8-ev">€5.44M</em><br>y genera más cada año.</h2>
+    <p class="chapter-lead reveal reveal-delay-2">El descuento de flujos libres con WACC del 10.4% y g=2% arroja un Enterprise Value mid de <strong style="color:var(--blueL)" id="k8-ev2">€5.44M</strong>. El múltiplo implícito de 11.5x EV/EBITDA es razonable para el sector. El escenario que elijas arriba mueve todo este capítulo.</p>
+
+    <div class="kpi-row reveal reveal-delay-3">
+      <div class="kpi-blue">
+        <div class="kval" id="k8-evmid">€5.44M</div>
+        <div class="klabel">EV Mid WACC</div>
+        <div class="ksub">WACC 10.41% · g=2%</div>
+        <span class="kdelta">Caso base</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval" id="k8-mult">11.5x</div>
+        <div class="klabel">EV / EBITDA implícito</div>
+        <div class="ksub">Múltiplo de valoración</div>
+        <span class="kdelta neutral">Razonable para restauración</span>
+      </div>
+      <div class="kpi-blue">
+        <div class="kval">2.2%</div>
+        <div class="klabel">TIR (IRR)</div>
+        <div class="ksub">Tasa Interna de Retorno</div>
+        <span class="kdelta neutral">Fase de arranque</span>
+      </div>
+      <div class="kpi-gold">
+        <div class="kval">10.4%</div>
+        <div class="klabel">WACC</div>
+        <div class="ksub">Ke 18.3% · Kd 6.2% post-tax</div>
+      </div>
+    </div>
+
+    <div class="ev-podium reveal reveal-delay-4">
+      <div class="ev-block">
+        <div class="ev-wacc">WACC Alto · 11.4%</div>
+        <div class="ev-val" id="ev-high">€4.88M</div>
+        <div class="ev-unit">Enterprise Value</div>
+        <div class="ev-mult" id="ev-high-mult">× 10.3 EV/EBITDA</div>
+      </div>
+      <div class="ev-block star">
+        <div class="ev-wacc">★ WACC Mid · 10.4%</div>
+        <div class="ev-val" id="ev-mid">€5.44M</div>
+        <div class="ev-unit">Enterprise Value</div>
+        <div class="ev-mult" id="ev-mid-mult">× 11.5 EV/EBITDA</div>
+        <div class="ev-waccval">Caso base</div>
+      </div>
+      <div class="ev-block">
+        <div class="ev-wacc">WACC Bajo · 9.4%</div>
+        <div class="ev-val" id="ev-low">€6.14M</div>
+        <div class="ev-unit">Enterprise Value</div>
+        <div class="ev-mult" id="ev-low-mult">× 13.0 EV/EBITDA</div>
+      </div>
+    </div>
+
+    <div class="cols2 reveal reveal-delay-4" style="margin-top:20px;">
+      <div class="chart-card">
+        <div class="chart-card-title">FCF descontado por periodo</div>
+        <div class="chart-card-sub">Contribución al EV · WACC Mid 10.4%</div>
+        <canvas id="c8_dcf" style="max-height:220px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">VAN acumulado vs Inversión inicial</div>
+        <div class="chart-card-sub">FCF descontado acumulado · Inversión equity €2.103M · k€</div>
+        <canvas id="c8_accum" style="max-height:220px;"></canvas>
+      </div>
+    </div>
+
+    <div class="annotation gold reveal reveal-delay-5" style="margin-top:20px;"><strong>Lectura del modelo:</strong> el WACC del 10.4% supera holgadamente la TIR del 2.2% en el horizonte 2026–2031, lo que refleja una inversión en fase de construcción de valor. El múltiplo implícito de 11.5x y la deuda cero en 2030 hacen del negocio un activo atractivo de cara a una eventual salida o proceso de M&A en 2030–2031.</div>
+  </div>
+</section>
+
+<!-- ======================================= SCRIPT ====================================== -->
+<script>
+// ─────────────────────────── DATA ───────────────────────────
+const Y = [2026,2027,2028,2029,2030,2031];
+
+const SCENARIOS = {
+  real: {
+    revenue:    [6393, 6659, 6934, 7179, 7451, 7731],
+    restaurant: [5984, 6233, 6490, 6719, 6973, 7236],
+    delivery:   [409,  426,  444,  460,  477,  495],
+    cogs:       [2512, 2616, 2723, 2819, 2925, 3034],
+    grossProfit:[3881, 4043, 4211, 4360, 4526, 4697],
+    grossMargin:[60.7, 60.7, 60.7, 60.7, 60.7, 60.7],
+    personnel:  [2378, 2426, 2474, 2524, 2574, 2626],
+    personnelPct:[37.2,36.4, 35.7, 35.2, 34.6, 34.0],
+    fixedCost:  [327,  338,  350,  361,  373,  385],
+    varCost:    [703,  732,  763,  790,  820,  850],
+    rentals:    [143,  146,  149,  152,  155,  158],
+    ebitda:     [473,  547,  623,  685,  759,  835],
+    ebitdaM:    [7.4,  8.2,  9.0,  9.5, 10.2, 10.8],
+    operCF:     [707,  448,  508,  558,  617,  678],
+    fcf:        [550,  257,  302,  340,  385,  432],
+    cashEq:     [252,    0,    0,    0,    0,  205],
+    interest:   [83,   57,   36,   20,   11,    3],
+    bankLoans:  [1317,1017,  698,  359,    0,    0],
+    capex:      [179,  193,  208,  220,  234,  249],
+    cit:        [76,  108,  124,  137,  152,  168],
+    wk:         [311,   9,    8,   10,   10,   11],
+    wkAR:       [-237, -10, -10,   -9,  -10,  -10],
+    wkAP:       [374,   15,  14,   15,   15,   17],
+    arBal:      [237,  247,  257,  266,  276,  287],
+    apBal:      [396,  412,  428,  444,  461,  480],
+    inv:        [33,    33,  34,   34,   34,   35],
+    equity:     [1854,1821,1871,1985,2167,2253],
+    roe:        [-6.6,-1.9, 2.7,  6.0,  8.7, 11.5],
+    bu1Rev26:2131, bu1Eb26:373, bu1Rev31:2577,
+    bu2Rev26:2131, bu2Eb26:373, bu2Rev31:2577,
+    bu3Rev26:2131, bu3Eb26:373, bu3Rev31:2577,
+    evMid:5443, evHigh:4880, evLow:6140,
+    multMid:11.5, multHigh:10.3, multLow:13.0,
+  },
+  opt: {
+    revenue:    [6904, 7192, 7488, 7753, 8047, 8349],
+    restaurant: [6462, 6731, 7009, 7257, 7531, 7814],
+    delivery:   [442,  461,  479,  496,  516,  535],
+    cogs:       [2698, 2808, 2922, 3024, 3138, 3257],
+    grossProfit:[4206, 4384, 4566, 4729, 4909, 5092],
+    grossMargin:[60.9, 60.9, 61.0, 61.0, 61.0, 61.0],
+    personnel:  [2378, 2426, 2474, 2524, 2574, 2626],
+    personnelPct:[34.4,33.7, 33.0, 32.6, 32.0, 31.5],
+    fixedCost:  [327,  338,  350,  361,  373,  385],
+    varCost:    [759,  791,  824,  853,  885,  919],
+    rentals:    [143,  146,  149,  152,  155,  158],
+    ebitda:     [577,  667,  760,  835,  925, 1019],
+    ebitdaM:    [8.3,  9.3, 10.1, 10.8, 11.5, 12.2],
+    operCF:     [797,  548,  614,  669,  739,  820],
+    fcf:        [613,  340,  387,  430,  486,  551],
+    cashEq:     [340,   75,   80,   80,  100,  385],
+    interest:   [83,   57,   36,   20,   11,    3],
+    bankLoans:  [1317,1017,  698,  359,    0,    0],
+    capex:      [179,  193,  208,  220,  234,  249],
+    cit:        [93,  133,  152,  167,  185,  204],
+    wk:         [336,   10,   10,   11,   11,   12],
+    wkAR:       [-256, -11, -11,  -10,  -11,  -11],
+    wkAP:       [404,   16,  15,   16,   16,   18],
+    arBal:      [256,  267,  278,  288,  299,  310],
+    apBal:      [428,  445,  462,  479,  497,  516],
+    inv:        [36,    36,  37,   37,   38,   38],
+    equity:     [1990,2001,2101,2265,2487,2612],
+    roe:        [-3.2, 2.1, 6.5,  9.8, 12.5, 15.2],
+    bu1Rev26:2301, bu1Eb26:452, bu1Rev31:2783,
+    bu2Rev26:2301, bu2Eb26:452, bu2Rev31:2783,
+    bu3Rev26:2301, bu3Eb26:452, bu3Rev31:2783,
+    evMid:7200, evHigh:6400, evLow:8100,
+    multMid:13.8, multHigh:12.2, multLow:15.5,
+  },
+  pes: {
+    revenue:    [5882, 6126, 6380, 6605, 6855, 7113],
+    restaurant: [5506, 5734, 5971, 6180, 6416, 6657],
+    delivery:   [376,  392,  409,  425,  439,  456],
+    cogs:       [2325, 2420, 2519, 2609, 2707, 2810],
+    grossProfit:[3557, 3706, 3861, 3996, 4148, 4303],
+    grossMargin:[60.5, 60.5, 60.5, 60.5, 60.5, 60.5],
+    personnel:  [2426, 2474, 2524, 2574, 2626, 2679],
+    personnelPct:[41.2,40.4, 39.6, 38.9, 38.3, 37.7],
+    fixedCost:  [333,  344,  357,  368,  381,  394],
+    varCost:    [647,  674,  702,  727,  754,  782],
+    rentals:    [143,  146,  149,  152,  155,  158],
+    ebitda:     [369,  427,  490,  538,  598,  660],
+    ebitdaM:    [6.3,  7.0,  7.7,  8.1,  8.7,  9.3],
+    operCF:     [617,  350,  400,  448,  503,  555],
+    fcf:        [430,  148,  183,  219,  260,  299],
+    cashEq:     [155, -107,  -97,  -84,  -75,   79],
+    interest:   [83,   57,   36,   20,   11,    3],
+    bankLoans:  [1317,1017,  698,  359,    0,    0],
+    capex:      [179,  193,  208,  220,  234,  249],
+    cit:        [59,   86,   99,  108,  120,  133],
+    wk:         [286,    7,    7,    8,    8,    9],
+    wkAR:       [-218,  -9,  -9,   -8,   -9,   -9],
+    wkAP:       [344,   13,  13,   13,   14,   15],
+    arBal:      [218,  227,  236,  244,  253,  262],
+    apBal:      [365,  378,  392,  406,  421,  436],
+    inv:        [30,    30,  31,   31,   32,   32],
+    equity:     [1718,1641,1640,1705,1847,1893],
+    roe:        [-9.8,-5.8,-1.2,  2.1,  5.0,  7.8],
+    bu1Rev26:1961, bu1Eb26:291, bu1Rev31:2371,
+    bu2Rev26:1961, bu2Eb26:291, bu2Rev31:2371,
+    bu3Rev26:1961, bu3Eb26:291, bu3Rev31:2371,
+    evMid:3600, evHigh:3200, evLow:4050,
+    multMid:9.2,  multHigh:8.2, multLow:10.4,
+  }
+};
+
+const NARRATIVES = {
+  '01': {
+    real: '<strong>📊 Realista — Base sólida, autofinanciada desde el día 1:</strong> El grupo arranca con €6.4M de ingresos sobre tres BUs que individualmente generan €373k de EBITDA unitario (17.5%). La diferencia con el consolidado (7.4%) son €646k de estructura HQ cuyo peso relativo decrecerá automáticamente con el crecimiento del revenue — sin coste marginal adicional. FCF 2026 de €550k con ICR de 2.6x sobre el servicio de deuda. Sin necesidad de financiación adicional: el modelo se autofinancia.',
+    opt:  '<strong>🟢 Optimista — Escala desde posición de fuerza, +160bps inmediatos:</strong> El uplift de +5% en precio/volumen lleva el revenue a €6.9M. Los €646k de HQ representan el 9.4% del revenue vs el 10.1% en el realista — eso son <strong>+70bps de margen EBITDA adicional sin ningún cambio operativo</strong>. EBITDA €577k, ICR de 3.1x. En términos de valoración: el escenario optimista en 2026 ya justifica un EV de €7.2M — 1.7x sobre la equity invertida de €2.1M.',
+    pes:  '<strong>🔴 Pesimista — Modelo resistente: tres anclajes de protección activos:</strong> El arranque en €5.9M con EBITDA de €369k (6.3%) activa tres escudos: (1) el gross margin aguanta al 60.5% por contratos de compra fijos hasta 2028; (2) FCF de €430k cubre el servicio de deuda (ICR 1.68x — ajustado pero fuera de zona de covenant); (3) el delivery actúa como colchón anticíclico. <strong>Acción preventiva: activar la línea RCF disponible como buffer de liquidez preventivo en H1-2026.</strong>'
+  },
+  '02': {
+    real: '<strong>📊 Realista — CAGR del 3.9%: sencillo de ejecutar, difícil de fallar:</strong> El crecimiento descansa sobre tres pilares: 2% precio (IPC histórico restauración España), 1% volumen orgánico y 1% mix. El delivery se mantiene en el 6.4% del revenue — no es motor de crecimiento en este plan sino diversificador de riesgo de canal, con potencial aceleración si se renegocia la estructura de comisiones (actualmente ~30%) con las plataformas.',
+    opt:  '<strong>🟢 Optimista — Revenue €8.3M: el upside viene de la foto inicial, no del ritmo:</strong> La diferencia vs el caso base (+€597k en 2031) proviene de la base más alta, no de un CAGR diferente. El CAGR dentro del optimista es ~3.9% — idéntico al realista. Implicación M&A: <strong>la valoración de entrada en 2025 es la variable más sensible del retorno total</strong>, más que la tasa de crecimiento anual.',
+    pes:  '<strong>🔴 Pesimista — Revenue €7.1M, impacto asimétrico en EBITDA:</strong> La caída de −€582k en revenue 2031 vs el realista genera −€175k en EBITDA (impacto 1.3x en EBITDA por cada euro de revenue perdido) porque los costes fijos no se comprimen. <strong>Umbral de alerta temprana:</strong> si el revenue 2026 cae por debajo de €5.5M, el Net Debt/EBITDA superaría 4.0x — activando riesgo de covenant.'
+  },
+  '03': {
+    real: '<strong>📊 Realista — El apalancamiento operativo hace el trabajo solo:</strong> Expansión de +340bps (7.4%→10.8%). El personal aporta el 94% de la mejora: su peso cae del 37.2% al 34.0% porque el revenue crece y la base salarial solo se indexa al IPC. Los €646k de HQ pasan del 10.1% al 8.4% del revenue — esos 170bps de dilución del coste central son EBITDA puro. El gross margin permanece absolutamente plano al 60.7%: los contratos de compra son eficientes.',
+    opt:  '<strong>🟢 Optimista — EBITDA al millón: hito de valoración y covenant:</strong> El EBITDA 2031 de €1.02M supera el umbral del millón — relevante para múltiplos de valoración y para el cumplimiento holgado de covenants. A 11.5x EV/EBITDA, los €187k de diferencia EBITDA vs el realista implican €2.1M de EV adicional. El margen de personal cae al 31.5% en 2031: equivale a ganar 1 FTE de productividad equivalente/año sin contratación adicional.',
+    pes:  '<strong>🔴 Pesimista — Expansión confirmada aunque más lenta: +79% de EBITDA en 5 años:</strong> El EBITDA crece de €369k a €660k incluso en el adverso. El personal pesa el 41.2% en 2026 — €256k de margen EBITDA "atrapados" que se irían liberando con mayor revenue. <strong>Palanca activa:</strong> en pesimista, revisar cláusulas de adaptabilidad de jornada en contratos de personal para recuperar bps de margen sin reducir cabeza.'
+  },
+  '04': {
+    real: '<strong>📊 Realista — WK como activo estratégico, no solo financiero:</strong> DSO de 13.4 días es excepcional — el promedio sector en España es 28-35 días. Doble valor: financiero (elimina ~€340k de necesidades de financiación corriente) y de información (cobro rápido es proxy de calidad de cartera). La concentración 83% Top-3 clientes tiene el lado positivo de contratos estables pero requiere monitorizar cláusulas de renovación anticipada. WK neto positivo de +€159k: "colchón silencioso" que muy pocas empresas del sector exhiben.',
+    opt:  '<strong>🟢 Optimista — Mayor escala, oportunidad de negociar mejores plazos con proveedores:</strong> El DSO no cambia (es estructural), pero la mayor escala de compras ofrece palanca para negociar DPO. Pasar de 45 a 55 días con proveedores liberaría ~€150k adicionales de caja estructural sin impacto en P&L — equivalente al 26% del EBITDA incremental del escenario optimista.',
+    pes:  '<strong>🔴 Pesimista — Concentración de clientes: riesgo latente que gestionar activamente:</strong> La liberación de WK cae a €286k (vs €311k en el realista). Más relevante: la concentración en Top-3 clientes se convierte en riesgo activo si alguno renegocia condiciones de pago. <strong>Acción preventiva:</strong> diversificar la cartera hacia un Top-10 antes de 2027, reduciendo la concentración máxima del 83% al 65%.'
+  },
+  '05': {
+    real: '<strong>📊 Realista — Jerarquía de usos de caja clara, disciplina financiera no negociable:</strong> FCF 2026 excepcional (€550k) por el efecto WK; desde 2027 se normaliza en €257-432k con conversión 81%. Jerarquía: (1) Capex mantenimiento, (2) servicio deuda, (3) impuestos, (4) distribución. En 2030, con deuda extinguida, los €359k que iban a amortización quedan íntegramente disponibles para el accionista. ICR promedio 2026-2029: 2.1x — cómodo y sostenible.',
+    opt:  '<strong>🟢 Optimista — FCF acumulado €2.4M: el negocio se paga solo y genera excedente:</strong> La deuda inicial (€1.3M) queda amortizada en 2030 según plan. El FCF acumulado 2026-2031 supera €2.4M — en términos de payback sobre equity invertida (€2.1M), el negocio recupera la inversión en <strong>aproximadamente el año 4</strong> del escenario optimista. El retorno implícito sobre equity post-deuda es del 26-29% anual en los años terminales.',
+    pes:  '<strong>🔴 Pesimista — FCF ajustado pero servicio de deuda cubierto en todos los años:</strong> El cash para equity arranca negativo en 2027-2029 (−€107k a −€75k) financiado con línea RCF. <strong>Covenant crítico a vigilar mensualmente:</strong> Net Debt/EBITDA. En 2026: €1.32M / €369k = 3.6x — en el límite alto del rango habitual (3.0-4.0x). Trigger de alerta: EBITDA < €330k activa riesgo de covenant. Propuesta de mitigación: añadir cláusula de "equity cure" al contrato de deuda que permita inyección de capital para sanar el covenant si fuera necesario.'
+  },
+  '06': {
+    real: '<strong>📊 Realista — El modelo multi-BU es rentable neto de HQ a partir de 2028:</strong> En 2026, los €646k de HQ consumen el 13.6% del EBITDA BU combinado (€1.12M). Esta proporción cae al 9.5% en 2031 — dilución automática sin decisión operativa. La estructura franquiciada (royalties 5%, marketing central 4%, IT central 1.2%) garantiza escalabilidad: añadir una cuarta BU en el futuro no incrementa el coste de HQ, solo el revenue consolidado.',
+    opt:  '<strong>🟢 Optimista — Cada BU al 19.6% de margen unitario: soporte ante estreses externos:</strong> La mayor base de revenue eleva el EBITDA unitario al 19.6% antes de HQ. Los €452k × 3 BUs = €1.36M de EBITDA pre-HQ genera un colchón suficiente para absorber un evento de crédito adverso (subida de 100bps en el Kd del préstamo bancario) sin incumplimiento de covenants.',
+    pes:  '<strong>🔴 Pesimista — HQ ejerce mayor presión relativa en la base más baja:</strong> Los €646k de HQ representan el 16.5% del EBITDA BU en pesimista (vs 13.6% en el realista). Este efecto "aplastamiento de margen por HQ" es la razón por la que el margen consolidado se deteriora más que el margen unitario. <strong>Acción de mitigación:</strong> renegociar los contratos de royalties (actualmente 5% fijo del revenue) hacia una estructura escalonada que reduzca el tipo efectivo en los primeros años — esto liberaría ~€64k anuales en el escenario pesimista.'
+  },
+  'pvm': {
+    real: '<strong>📊 Realista — Tres motores equilibrados, cada uno con su responsable:</strong> El precio (+2.0%/año) se sustenta en el poder de fijación de la carta y el IPC histórico de la restauración en España. El volumen (+1.0%/año) refleja una maduración orgánica sin apertura de nuevas unidades — conservador y sostenible. El mix (+1.0%/año) es la palanca más valiosa porque es 100% gestionable: deriva del incremento en la tasa de adherencia de bebidas (6.3%→7.3% del revenue) y postres (9.2%→9.9%). El ticket medio crece de €10.65 a €13.22 en 5 años: €1.11 de precio y €1.46 de mix. <strong>Implicación operativa: la formación comercial del equipo de sala y los KPIs de attached rate son inversiones de altísimo ROI.</strong>',
+    opt:  '<strong>🟢 Optimista — Precio y volumen en primera línea; el mix respalda:</strong> El entorno de demanda sólida permite trasladar precios con menor fricción (~2.0%/año efectivo), y el mayor volumen de clientes eleva el apalancamiento sobre costes fijos. El efecto mix es similar al caso base (~1.0%/año): cuando hay demanda fuerte, los clientes consumen de forma más completa sin necesidad de venta sugestiva tan activa. El ticket alcanza €13.90 en 2031 (+30%): €1.50 de precio puro y €1.75 de mix/volumen combinados. <strong>En este escenario, la prioridad es proteger el precio: no aplicar descuentos promocionales que erosionen el positioning de la carta.</strong>',
+    pes:  '<strong>🔴 Pesimista — El mix como palanca defensiva y supervivencia del plan:</strong> Con precio limitado al 1.5%/año y volumen casi plano (+0.3%/año), el <strong>efecto mix asume el 54% del crecimiento total</strong> (~2.1%/año). Esto significa que la viabilidad del plan de crecimiento en pesimista depende crítica y directamente de la capacidad del equipo de sala para upsell de bebidas y postres a los clientes ya presentes. El ticket crece de €10.20 a €12.52 (+23%) mayoritariamente vía mix. <strong>Acción directa: implementar targets de attached rate por BU (objetivo mínimo: bebidas 0.35/servicio, postres 0.40/servicio en 2027), con incentivos variables ligados a estos KPIs para el equipo de sala.</strong>'
+  }
+};
+
+let SC = 'real';
+
+// ─────────────────────────── PVM DATA ───────────────────────────
+const PVM = {
+  real: {
+    // Annual delta decomposition (vs prior year) [2027,2028,2029,2030,2031]
+    price:  [128, 133, 139, 144, 149],
+    volume: [64,  67,  53,  64,  66],
+    mix:    [74,  75,  53,  64,  65],
+    // Product mix % of total revenue [2026,2027,2028,2029,2030,2031]
+    mixMeals:    [54.7, 54.5, 54.3, 54.1, 53.9, 53.7],
+    mixSandwich: [11.1, 10.9, 10.8, 10.6, 10.4, 10.2],
+    mixCompl:    [12.3, 12.3, 12.4, 12.4, 12.4, 12.5],
+    mixDrinks:   [6.3,  6.5,  6.7,  6.9,  7.1,  7.3],
+    mixDesserts: [9.2,  9.4,  9.5,  9.6,  9.8,  9.9],
+    mixDelivery: [6.4,  6.4,  6.4,  6.4,  6.4,  6.4],
+    // Ticket medio per service [2026..2031]
+    ticket: [10.65, 11.04, 11.44, 11.75, 12.13, 13.22],
+    pricePct:'2.0', volumePct:'1.0', mixPct:'1.0',
+    priceAbsAvg:134, volumeAbsAvg:63, mixAbsAvg:66,
+    ticketStart:10.65, ticketEnd:13.22, ticketGrowth:24,
+    priceUplift:1.11, mixUplift:1.46,
+    drinksDelta:1.0, dessertsDelta:0.7,
+    drinksStart:'6.3%', drinksEnd:'7.3%',
+    dessertsStart:'9.2%', dessertsEnd:'9.9%',
+  },
+  opt: {
+    price:  [138, 144, 150, 156, 161],
+    volume: [76,  79,  55,  83,  89],
+    mix:    [74,  73,  60,  55,  52],
+    mixMeals:    [54.2, 54.0, 53.8, 53.6, 53.4, 53.2],
+    mixSandwich: [10.9, 10.8, 10.6, 10.5, 10.3, 10.1],
+    mixCompl:    [12.3, 12.3, 12.4, 12.4, 12.5, 12.5],
+    mixDrinks:   [6.4,  6.6,  6.8,  7.0,  7.2,  7.4],
+    mixDesserts: [9.8,  9.9,  10.0, 10.1, 10.2, 10.4],
+    mixDelivery: [6.4,  6.4,  6.4,  6.4,  6.4,  6.4],
+    ticket: [11.00, 11.46, 11.91, 12.29, 12.73, 13.90],
+    pricePct:'2.0', volumePct:'1.1', mixPct:'1.0',
+    priceAbsAvg:150, volumeAbsAvg:76, mixAbsAvg:63,
+    ticketStart:11.00, ticketEnd:13.90, ticketGrowth:26,
+    priceUplift:1.50, mixUplift:1.40,
+    drinksDelta:1.0, dessertsDelta:0.6,
+    drinksStart:'6.4%', drinksEnd:'7.4%',
+    dessertsStart:'9.8%', dessertsEnd:'10.4%',
+  },
+  pes: {
+    price:  [88,  92,  96,  99, 103],
+    volume: [18,  19,  19,  20,  21],
+    mix:    [138, 143, 110, 131, 134],
+    mixMeals:    [55.2, 54.9, 54.7, 54.5, 54.2, 54.0],
+    mixSandwich: [11.2, 11.0, 10.8, 10.6, 10.5, 10.3],
+    mixCompl:    [12.3, 12.4, 12.5, 12.5, 12.6, 12.6],
+    mixDrinks:   [6.2,  6.4,  6.6,  6.8,  7.0,  7.2],
+    mixDesserts: [9.0,  9.2,  9.4,  9.6,  9.7,  9.9],
+    mixDelivery: [6.1,  6.1,  6.0,  6.0,  6.0,  6.0],
+    ticket: [10.20, 10.55, 10.93, 11.24, 11.62, 12.52],
+    pricePct:'1.5', volumePct:'0.3', mixPct:'2.1',
+    priceAbsAvg:96, volumeAbsAvg:19, mixAbsAvg:131,
+    ticketStart:10.20, ticketEnd:12.52, ticketGrowth:23,
+    priceUplift:0.78, mixUplift:1.54,
+    drinksDelta:1.0, dessertsDelta:0.9,
+    drinksStart:'6.2%', drinksEnd:'7.2%',
+    dessertsStart:'9.0%', dessertsEnd:'9.9%',
+  }
+};
+const charts = {};
+const fmt = (v, d=0) => typeof v === 'number' ? v.toLocaleString('es-ES', {minimumFractionDigits:d, maximumFractionDigits:d}) : '—';
+const fmtM = v => `€${(v/1000).toFixed(2)}M`;
+
+Chart.defaults.color = '#475569';
+Chart.defaults.borderColor = 'rgba(0,0,0,0.06)';
+Chart.defaults.font.family = "'Calibri','Calibri Body',Calibri,sans-serif";
+Chart.defaults.font.size = 11;
+
+const TT = {
+  backgroundColor:'#ffffff',
+  borderColor:'rgba(26,108,240,0.25)',
+  borderWidth:1,
+  titleColor:'#0f172a',
+  bodyColor:'#64748b',
+  padding:10,
+  cornerRadius:8
+};
+
+function mk(id, config) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(ctx, config);
+}
+
+// ─────────────────────────── BUILD CHARTS ───────────────────────────
+function buildCharts() {
+  const d = SCENARIOS[SC];
+
+  // C1 — Channel donut
+  mk('c1_channel', {
+    type:'doughnut',
+    data:{
+      labels:['Restaurante','Food Delivery'],
+      datasets:[{
+        data:[d.restaurant[0], d.delivery[0]],
+        backgroundColor:['rgba(26,108,240,.7)','rgba(59,130,246,.25)'],
+        borderColor:['#3b82f6','rgba(59,130,246,.5)'],
+        borderWidth:1.5, hoverOffset:6
+      }]
+    },
+    options:{cutout:'65%',responsive:true,
+      plugins:{legend:{position:'bottom',labels:{padding:16,boxWidth:10}},tooltip:{...TT,callbacks:{label:c=>` ${c.label}: €${fmt(c.raw)}k (${(c.raw/d.revenue[0]*100).toFixed(1)}%)`}}}}
+  });
+
+  // C1 — P&L Waterfall
+  mk('c1_waterfall', {
+    type:'bar',
+    data:{
+      labels:['Revenue','— COGs','Gross Profit','— Personal','— Otro Opex','= EBITDA'],
+      datasets:[{
+        data:[d.revenue[0],-d.cogs[0],d.grossProfit[0],-d.personnel[0],-(d.grossProfit[0]-d.personnel[0]-d.ebitda[0]),d.ebitda[0]],
+        backgroundColor:['rgba(59,130,246,.7)','rgba(244,63,94,.6)','rgba(16,185,129,.65)','rgba(244,63,94,.5)','rgba(244,63,94,.4)','rgba(245,158,11,.75)'],
+        borderRadius:4, borderSkipped:false
+      }]
+    },
+    options:{
+      indexAxis:'y', responsive:true,
+      plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` €${fmt(Math.abs(c.raw))}k`}}},
+      scales:{x:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(Math.abs(v))+'k'}},y:{grid:{display:false}}}
+    }
+  });
+
+  // C1 — PVM Bridge (stacked bar + ticket line)
+  const pvm = PVM[SC];
+  const Ydelta = [2027,2028,2029,2030,2031];
+  mk('c1_pvm', {
+    data:{
+      labels: Ydelta,
+      datasets:[
+        {type:'bar', label:'Efecto Precio', data:pvm.price,  backgroundColor:'rgba(26,108,240,.65)',  borderRadius:[4,4,0,0], stack:'pvm'},
+        {type:'bar', label:'Efecto Volumen',data:pvm.volume, backgroundColor:'rgba(5,150,105,.55)',   borderRadius:0, stack:'pvm'},
+        {type:'bar', label:'Efecto Mix',    data:pvm.mix,    backgroundColor:'rgba(217,119,6,.65)',   borderRadius:[0,0,4,4], stack:'pvm'},
+        {type:'line',label:'Ticket Medio (€)',data:pvm.ticket.slice(1),
+          borderColor:'rgba(220,38,38,.8)', backgroundColor:'transparent',
+          borderWidth:2, pointRadius:5, pointBackgroundColor:'#dc2626',
+          tension:.4, yAxisID:'y2'}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,
+        callbacks:{
+          title: ctx=>`${ctx[0].label} vs ${parseInt(ctx[0].label)-1}`,
+          label: c=>c.dataset.yAxisID==='y2'
+            ? ` ${c.dataset.label}: €${c.raw.toFixed(2)}`
+            : ` ${c.dataset.label}: +€${fmt(c.raw)}k`
+        }
+      }},
+      scales:{
+        x:{stacked:true, grid:{display:false}},
+        y:{stacked:true, grid:{color:'rgba(0,0,0,.06)'}, ticks:{callback:v=>'+€'+fmt(v)+'k'}},
+        y2:{position:'right', grid:{display:false}, min:9, max:15,
+          ticks:{callback:v=>'€'+v.toFixed(1)}}
+      }
+    }
+  });
+
+  // C1 — Product mix stacked 100%
+  mk('c1_mix', {
+    type:'bar',
+    data:{
+      labels: Y,
+      datasets:[
+        {label:'Meals',      data:pvm.mixMeals,    backgroundColor:'rgba(26,108,240,.65)',  stack:'m', borderRadius:0},
+        {label:'Sandwich',   data:pvm.mixSandwich, backgroundColor:'rgba(59,130,246,.45)', stack:'m', borderRadius:0},
+        {label:'Complements',data:pvm.mixCompl,    backgroundColor:'rgba(16,185,129,.55)', stack:'m', borderRadius:0},
+        {label:'Bebidas',    data:pvm.mixDrinks,   backgroundColor:'rgba(245,158,11,.75)', stack:'m', borderRadius:0},
+        {label:'Postres',    data:pvm.mixDesserts, backgroundColor:'rgba(217,119,6,.55)',  stack:'m', borderRadius:0},
+        {label:'Delivery',   data:pvm.mixDelivery, backgroundColor:'rgba(100,116,139,.4)', stack:'m', borderRadius:[4,4,0,0]}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{labels:{boxWidth:8,padding:10}},
+        tooltip:{...TT, callbacks:{
+          label:c=>` ${c.dataset.label}: ${c.raw.toFixed(1)}%`
+        }}
+      },
+      scales:{
+        x:{stacked:true, grid:{display:false}},
+        y:{stacked:true, min:0, max:100, grid:{color:'rgba(0,0,0,.06)'},
+          ticks:{callback:v=>v+'%'}}
+      }
+    }
+  });
+
+  // C2 — Revenue evolution
+  mk('c2_revenue', {
+    data:{
+      labels:Y,
+      datasets:[
+        {type:'bar',label:'Restaurante',data:d.restaurant,backgroundColor:'rgba(26,108,240,.55)',borderColor:'rgba(59,130,246,.8)',borderWidth:1,stack:'r',borderRadius:[4,4,0,0]},
+        {type:'bar',label:'Food Delivery',data:d.delivery,backgroundColor:'rgba(59,130,246,.25)',borderColor:'rgba(147,197,253,.5)',borderWidth:1,stack:'r',borderRadius:[4,4,0,0]},
+        {type:'line',label:'Revenue Total',data:d.revenue,borderColor:'#93c5fd',backgroundColor:'transparent',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#3b82f6',tension:.4}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:10,padding:16}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: €${fmt(c.raw)}k`}}},
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:false,grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C3 — EBITDA & margins
+  mk('c3_ebitda', {
+    data:{
+      labels:Y,
+      datasets:[
+        {type:'bar',label:'EBITDA k€',data:d.ebitda,backgroundColor:'rgba(245,158,11,.35)',borderColor:'rgba(245,158,11,.8)',borderWidth:1,borderRadius:4,yAxisID:'y'},
+        {type:'line',label:'EBITDA Margin %',data:d.ebitdaM,borderColor:'#f59e0b',backgroundColor:'transparent',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#f59e0b',tension:.4,yAxisID:'y2'},
+        {type:'line',label:'Gross Margin %',data:d.grossMargin,borderColor:'rgba(16,185,129,.7)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[4,3],pointRadius:3,tension:.4,yAxisID:'y2'},
+        {type:'line',label:'Personal % Rev',data:d.personnelPct,borderColor:'rgba(244,63,94,.7)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[6,3],pointRadius:3,tension:.4,yAxisID:'y2'}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:10,padding:14}},tooltip:{...TT}},
+      scales:{
+        x:{grid:{display:false}},
+        y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}},
+        y2:{position:'right',grid:{display:false},ticks:{callback:v=>v+'%'},min:0,max:70}
+      }
+    }
+  });
+
+  // C3 — Cost % comparison
+  const p26=(d.personnel[0]/d.revenue[0]*100).toFixed(1)*1;
+  const p31=(d.personnel[5]/d.revenue[5]*100).toFixed(1)*1;
+  const c26=(d.cogs[0]/d.revenue[0]*100).toFixed(1)*1;
+  const c31=(d.cogs[5]/d.revenue[5]*100).toFixed(1)*1;
+  const f26=(d.fixedCost[0]/d.revenue[0]*100).toFixed(1)*1;
+  const f31=(d.fixedCost[5]/d.revenue[5]*100).toFixed(1)*1;
+  mk('c3_costs', {
+    type:'bar',
+    data:{
+      labels:['COGs','Personal','Opex Fijo','Opex Variable'],
+      datasets:[
+        {label:'2026',data:[c26,p26,f26,11.0],backgroundColor:'rgba(26,108,240,.6)',borderRadius:4},
+        {label:'2031',data:[c31,p31,f31,11.0],backgroundColor:'rgba(16,185,129,.5)',borderRadius:4}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: ${c.raw}% Revenue`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>v+'%'}}}
+    }
+  });
+
+  // C4 — WK balances
+  mk('c4_wk', {
+    data:{
+      labels:Y,
+      datasets:[
+        {type:'line',label:'AR (Deudores)',data:d.arBal,borderColor:'rgba(244,63,94,.8)',backgroundColor:'transparent',borderWidth:2,pointRadius:3,tension:.4},
+        {type:'line',label:'AP (Acreedores)',data:d.apBal,borderColor:'rgba(16,185,129,.8)',backgroundColor:'transparent',borderWidth:2,pointRadius:3,tension:.4},
+        {type:'bar',label:'Inventario',data:d.inv,backgroundColor:'rgba(245,158,11,.35)',borderRadius:3}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: €${fmt(c.raw)}k`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C4 — WK variation
+  mk('c4_wkvar', {
+    type:'bar',
+    data:{
+      labels:Y,
+      datasets:[
+        {label:'Δ WK Total',data:d.wk,backgroundColor:d.wk.map(v=>v>=0?'rgba(16,185,129,.6)':'rgba(244,63,94,.5)'),borderColor:d.wk.map(v=>v>=0?'rgba(16,185,129,.9)':'rgba(244,63,94,.9)'),borderWidth:1,borderRadius:4},
+        {type:'line',label:'Δ AR',data:d.wkAR,borderColor:'rgba(244,63,94,.6)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[3,3],pointRadius:3,tension:.4},
+        {type:'line',label:'Δ AP',data:d.wkAP,borderColor:'rgba(16,185,129,.6)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[3,3],pointRadius:3,tension:.4}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: €${fmt(c.raw)}k`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C5 — CF lines
+  mk('c5_cf', {
+    type:'line',
+    data:{
+      labels:Y,
+      datasets:[
+        {label:'Operating CF',data:d.operCF,borderColor:'rgba(59,130,246,.9)',backgroundColor:'rgba(26,108,240,.08)',fill:true,borderWidth:2,pointRadius:4,tension:.4},
+        {label:'Free Cash Flow',data:d.fcf,borderColor:'rgba(147,197,253,.9)',backgroundColor:'transparent',fill:false,borderWidth:2,pointRadius:3,tension:.4},
+        {label:'Cash p/ Equity',data:d.cashEq,borderColor:'rgba(16,185,129,.7)',backgroundColor:'transparent',fill:false,borderWidth:1.5,borderDash:[4,3],pointRadius:3,tension:.4}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: €${fmt(c.raw)}k`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C5 — Uses donut
+  const totD = d.bankLoans[0];
+  const totI = d.interest.reduce((a,b)=>a+b,0);
+  const totCap = d.capex.reduce((a,b)=>a+b,0);
+  const totCit = d.cit.reduce((a,b)=>a+b,0);
+  const usesData = [totD, totI, totCap, totCit];
+  const usesLabels = ['Amort. Deuda','Intereses','Capex','Impuestos CIT'];
+  const usesColors = ['rgba(220,38,38,.7)','rgba(217,119,6,.75)','rgba(37,99,235,.65)','rgba(5,150,105,.65)'];
+  mk('c5_uses', {
+    type:'doughnut',
+    data:{labels:usesLabels,datasets:[{data:usesData,backgroundColor:usesColors,borderColor:usesColors,borderWidth:1,hoverOffset:5}]},
+    options:{cutout:'60%',responsive:true,maintainAspectRatio:true,
+      plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` ${c.label}: €${fmt(c.raw)}k`}}}}
+  });
+  const total = usesData.reduce((a,b)=>a+b,0);
+  document.getElementById('use-legend').innerHTML = usesLabels.map((l,i)=>
+    `<div class="use-item"><div class="use-dot" style="background:${usesColors[i]};"></div>
+     <span class="use-name">${l}</span>
+     <span class="use-val">€${fmt(usesData[i])}k<span class="use-pct"> ${(usesData[i]/total*100).toFixed(0)}%</span></span></div>`
+  ).join('');
+
+  // C5 — CF bridge 2026
+  mk('c5_bridge', {
+    type:'bar',
+    data:{
+      labels:['EBITDA','+ ΔWK','− CIT','− Capex','= Op.CF'],
+      datasets:[{
+        data:[d.ebitda[0], d.wk[0], -d.cit[0], -d.capex[0], d.operCF[0]],
+        backgroundColor:['rgba(245,158,11,.7)','rgba(16,185,129,.6)','rgba(244,63,94,.55)','rgba(244,63,94,.45)','rgba(26,108,240,.75)'],
+        borderRadius:4, borderSkipped:false
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` €${fmt(c.raw)}k`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C5 — Uses by year
+  mk('c5_usesyr', {
+    type:'bar',
+    data:{
+      labels:Y,
+      datasets:[
+        {label:'Amort. Deuda',data:d.bankLoans.map((v,i)=>i===0?d.bankLoans[0]-d.bankLoans[1]:i<5?d.bankLoans[i]-d.bankLoans[i+1]:d.bankLoans[i]),backgroundColor:'rgba(244,63,94,.45)',borderRadius:3,stack:'u'},
+        {label:'Intereses',data:d.interest,backgroundColor:'rgba(245,158,11,.5)',borderRadius:3,stack:'u'},
+        {label:'Capex',data:d.capex,backgroundColor:'rgba(59,130,246,.45)',borderRadius:3,stack:'u'},
+        {label:'Impuestos',data:d.cit,backgroundColor:'rgba(16,185,129,.4)',borderRadius:3,stack:'u'}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:10}},tooltip:{...TT}},
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C6 — BU Revenue stacked
+  mk('c6_bu', {
+    type:'bar',
+    data:{
+      labels:Y,
+      datasets:[
+        {label:'BU1',data:Y.map((_,i)=>Math.round(d.revenue[i]/3)),backgroundColor:'rgba(26,108,240,.65)',stack:'s',borderRadius:[4,4,0,0]},
+        {label:'BU2',data:Y.map((_,i)=>Math.round(d.revenue[i]/3)),backgroundColor:'rgba(5,150,105,.55)',stack:'s',borderRadius:0},
+        {label:'BU3',data:Y.map((_,i)=>Math.round(d.revenue[i]/3)),backgroundColor:'rgba(124,58,237,.45)',stack:'s',borderRadius:0}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT}},
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C6 — BU EBITDA vs Consolidado
+  mk('c6_bu_ebitda', {
+    data:{
+      labels:Y,
+      datasets:[
+        {type:'bar',label:'EBITDA BU (×3, sin HQ)',data:Y.map((_,i)=>d.ebitda[i]+646),backgroundColor:'rgba(16,185,129,.35)',borderRadius:4},
+        {type:'bar',label:'EBITDA Consolidado',data:d.ebitda,backgroundColor:'rgba(26,108,240,.6)',borderRadius:4},
+        {type:'line',label:'Gap HQ (k€)',data:Y.map(()=>646),borderColor:'rgba(244,63,94,.6)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[4,3],pointRadius:0}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: €${fmt(c.raw)}k`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C7 — Balance
+  mk('c7_balance', {
+    type:'bar',
+    data:{
+      labels:Y,
+      datasets:[
+        {label:'Deuda LT',data:d.bankLoans,backgroundColor:'rgba(244,63,94,.4)',borderRadius:[0,0,4,4],stack:'s'},
+        {label:'Equity',data:d.equity,backgroundColor:'rgba(26,108,240,.5)',borderRadius:[4,4,0,0],stack:'s'}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: €${fmt(c.raw)}k`}}},
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C7 — ROE + debt
+  mk('c7_roe', {
+    data:{
+      labels:Y,
+      datasets:[
+        {type:'line',label:'ROE %',data:d.roe,borderColor:'rgba(26,108,240,.9)',backgroundColor:'rgba(26,108,240,.08)',fill:true,borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#3b82f6',tension:.4,yAxisID:'y'},
+        {type:'bar',label:'Deuda LT k€',data:d.bankLoans,backgroundColor:'rgba(244,63,94,.2)',borderColor:'rgba(244,63,94,.6)',borderWidth:1.5,borderRadius:4,yAxisID:'y2'}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT}},
+      scales:{
+        x:{grid:{display:false}},
+        y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>v+'%'}},
+        y2:{position:'right',grid:{display:false},ticks:{callback:v=>fmt(v)+'k'}}
+      }
+    }
+  });
+
+  // C7 — FCF accumulated
+  let cum = 0;
+  const accum = d.fcf.map(v=>{cum+=v;return Math.round(cum);});
+  mk('c7_accum', {
+    type:'line',
+    data:{
+      labels:Y,
+      datasets:[
+        {label:'FCF Acumulado',data:accum,borderColor:'rgba(16,185,129,.8)',backgroundColor:'rgba(16,185,129,.08)',fill:true,borderWidth:2.5,pointRadius:4,tension:.4},
+        {label:'Deuda Inicial',data:Y.map(()=>1600),borderColor:'rgba(244,63,94,.4)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[6,4],pointRadius:0}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: €${fmt(c.raw)}k`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C8 — DCF bars
+  const wacc = 0.1041;
+  let cp = 0;
+  const dcf = d.fcf.map((f,i)=>{cp+=(i===0?.5:1);return Math.round(f/Math.pow(1+wacc,cp));});
+  const tv = Math.round(d.evMid - dcf.reduce((a,b)=>a+b,0));
+  mk('c8_dcf', {
+    type:'bar',
+    data:{
+      labels:[...Y.map(y=>String(y)),'TV'],
+      datasets:[{
+        data:[...dcf, tv],
+        backgroundColor:[...[...Array(6)].map((_,i)=>`rgba(26,108,240,${0.7-i*.07})`), 'rgba(245,158,11,.55)'],
+        borderRadius:4
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` €${fmt(c.raw)}k`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+
+  // C8 — NPV accumulated
+  let cpv = 0;
+  const dcfAcc = d.fcf.map((f,i)=>{cpv+=(i===0?.5:1);const disc=Math.round(f/Math.pow(1+wacc,cpv));return disc;}).reduce((arr,v)=>{arr.push((arr[arr.length-1]||0)+v);return arr;},[]);
+  mk('c8_accum', {
+    type:'line',
+    data:{
+      labels:Y,
+      datasets:[
+        {label:'VAN acumulado (FCF descontado)',data:dcfAcc,borderColor:'rgba(16,185,129,.8)',backgroundColor:'rgba(16,185,129,.08)',fill:true,borderWidth:2.5,pointRadius:4,tension:.4},
+        {label:'Inversión Equity',data:Y.map(()=>2103),borderColor:'rgba(244,63,94,.4)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[6,4],pointRadius:0}
+      ]
+    },
+    options:{
+      responsive:true, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:8,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: €${fmt(c.raw)}k`}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{callback:v=>fmt(v)+'k'}}}
+    }
+  });
+}
+
+// ─────────────────────────── PVM TABLE ───────────────────────────
+function buildPVMTable() {
+  const d = SCENARIOS[SC];
+  const pvm = PVM[SC];
+  const tbody = document.getElementById('pvmTableBody');
+  if (!tbody) return;
+  const years = [2026,2027,2028,2029,2030,2031];
+  let rows = '';
+  for (let i=1; i<6; i++) {
+    const prevRev = d.revenue[i-1];
+    const curRev  = d.revenue[i];
+    const delta   = curRev - prevRev;
+    const tk      = pvm.ticket[i];
+    rows += `<tr>
+      <td>${years[i]}</td>
+      <td style="color:var(--muted)">€${fmt(prevRev)}k</td>
+      <td class="pvm-price">+€${fmt(pvm.price[i-1])}k</td>
+      <td class="pvm-vol">+€${fmt(pvm.volume[i-1])}k</td>
+      <td class="pvm-mix">+€${fmt(pvm.mix[i-1])}k</td>
+      <td class="pvm-total-delta">+€${fmt(delta)}k</td>
+      <td style="color:var(--blueL);font-weight:600">€${fmt(curRev)}k</td>
+      <td style="color:var(--gold);font-weight:700">€${tk.toFixed(2)}</td>
+    </tr>`;
+  }
+  // Cumulative total row
+  const totP = pvm.price.reduce((a,b)=>a+b,0);
+  const totV = pvm.volume.reduce((a,b)=>a+b,0);
+  const totM = pvm.mix.reduce((a,b)=>a+b,0);
+  const totD = d.revenue[5]-d.revenue[0];
+  rows += `<tr class="pvm-total">
+    <td>Acumulado</td>
+    <td></td>
+    <td class="pvm-price">+€${fmt(totP)}k</td>
+    <td class="pvm-vol">+€${fmt(totV)}k</td>
+    <td class="pvm-mix">+€${fmt(totM)}k</td>
+    <td>+€${fmt(totD)}k</td>
+    <td></td>
+    <td></td>
+  </tr>`;
+  tbody.innerHTML = rows;
+}
+
+// ─────────────────────────── DEBT BARS ───────────────────────────
+function buildDebtBars() {
+  const d = SCENARIOS[SC];
+  const el = document.getElementById('debtBars');
+  el.innerHTML = '';
+  const initial = d.bankLoans[0];
+  Y.forEach((yr,i)=>{
+    const v = d.bankLoans[i];
+    const pct = initial > 0 ? (v/initial)*100 : 0;
+    const done = v === 0;
+    const col = done
+      ? 'linear-gradient(90deg,rgba(16,185,129,.7),rgba(16,185,129,.3))'
+      : `linear-gradient(90deg,rgba(244,63,94,${.3+.4*(v/initial)}),rgba(244,63,94,.15))`;
+    el.innerHTML += `<div class="debt-bar-wrap">
+      <div class="debt-bar-label">
+        <span>${yr}</span>
+        <span style="color:${done?'var(--green)':'var(--text)'}">€${fmt(v)}k ${done?'✓ LIBRE DE DEUDA':''}</span>
+      </div>
+      <div class="debt-bar-track"><div class="debt-bar-fill" style="width:${pct}%;background:${col};"></div></div>
+    </div>`;
+  });
+}
+
+// ─────────────────────────── UPDATE KPIs ───────────────────────────
+function updateKPIs() {
+  const d = SCENARIOS[SC];
+  const set = (id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
+
+  const cagr = ((Math.pow(d.revenue[5]/d.revenue[0],1/5)-1)*100).toFixed(1);
+  const grow  = ((d.revenue[5]/d.revenue[0]-1)*100).toFixed(0);
+  const expand = Math.round((d.ebitdaM[5]-d.ebitdaM[0])*100);
+  const persDrop = Math.round((d.personnelPct[0]-d.personnelPct[5])*100);
+
+  // Hero
+  set('h-rev',   fmtM(d.revenue[0]));
+  set('h-ebitda',`€${fmt(d.ebitda[0])}k`);
+  set('h-ev',    fmtM(d.evMid));
+
+  // Cap1
+  set('k1-rev',  fmtM(d.revenue[0]));
+  set('k1-gm',   `${d.grossMargin[0]}%`);
+  set('k1-eb',   `€${fmt(d.ebitda[0])}k`);
+  set('k1-ebm',  `${d.ebitdaM[0]}% sobre revenue`);
+  set('k1-fcf',  `€${fmt(d.fcf[0])}k`);
+  set('k1-conv', `${(d.fcf[0]/d.ebitda[0]*100).toFixed(0)}% conversión EBITDA`);
+  set('k1-gp',   `€${(d.grossProfit[0]/1000).toFixed(2)}M`);
+
+  // Cap2
+  set('k2-cagr', `~${cagr}%`);
+  set('k2-total',`+${grow}%`);
+  set('k2-sub',  `${fmtM(d.revenue[0])} → ${fmtM(d.revenue[5])}`);
+  set('k2-rest31',fmtM(d.restaurant[5]));
+  set('k2-del31', `€${fmt(d.delivery[5])}k`);
+
+  // Cap3
+  set('k3-em26',   `${d.ebitdaM[0]}%`);
+  set('k3-em31',   `${d.ebitdaM[5]}%`);
+  set('k3-expand', `+${expand} bps`);
+  set('k3-expandsub',`${d.ebitdaM[0]}% → ${d.ebitdaM[5]}% (2026–2031)`);
+  set('k3-pers-drop',`−${persDrop} bps`);
+  set('k3-pers-sub', `${d.personnelPct[0]}% → ${d.personnelPct[5]}%`);
+  set('k3-gm',    `${d.grossMargin[0]}%`);
+  set('k3-eb31',  `€${fmt(d.ebitda[5])}k`);
+  set('k3-eb26sub',`Desde €${fmt(d.ebitda[0])}k en 2026`);
+
+  // Cap5
+  set('k5-fcf26', `€${fmt(d.fcf[0])}k`);
+  set('k5-conv',  `${(d.fcf[0]/d.ebitda[0]*100).toFixed(0)}% conversión EBITDA`);
+  set('k5-fcf31', `€${fmt(d.fcf[5])}k`);
+  set('k5-cashEq31',`€${fmt(d.cashEq[5])}k`);
+
+  // PVM section
+  const pvm = PVM[SC];
+  set('kpvm-price',    `${pvm.pricePct}%/año`);
+  set('kpvm-price-abs',`~€${fmt(pvm.priceAbsAvg)}k/año promedio`);
+  set('kpvm-vol',      `${pvm.volumePct}%/año`);
+  set('kpvm-vol-abs',  `~€${fmt(pvm.volumeAbsAvg)}k/año promedio`);
+  set('kpvm-mix',      `${pvm.mixPct}%/año`);
+  set('kpvm-mix-abs',  `~€${fmt(pvm.mixAbsAvg)}k/año promedio`);
+  const ticketGrowthPct = Math.round((pvm.ticketEnd/pvm.ticketStart-1)*100);
+  set('kpvm-ticket',   `+${ticketGrowthPct}%`);
+  set('kpvm-ticket-sub',`€${pvm.ticketStart.toFixed(2)} → €${pvm.ticketEnd.toFixed(2)}`);
+  // Ticket blocks
+  set('tk-2026',       `€${pvm.ticketStart.toFixed(2)}`);
+  set('tk-price-up',   `+€${pvm.priceUplift.toFixed(2)}`);
+  set('tk-mix-up',     `+€${pvm.mixUplift.toFixed(2)}`);
+  set('tk-2031',       `€${pvm.ticketEnd.toFixed(2)}`);
+  set('tk-growth',     `+${ticketGrowthPct}% en 5 años`);
+  set('tk-drinks',     `+${pvm.drinksDelta.toFixed(1)}pp`);
+  set('tk-drinks-sub', `${pvm.drinksStart} → ${pvm.drinksEnd}`);
+  set('tk-desserts',   `+${pvm.dessertsDelta.toFixed(1)}pp`);
+  set('tk-desserts-sub',`${pvm.dessertsStart} → ${pvm.dessertsEnd}`);
+
+  // Cap7
+  set('k7-roe31', `${d.roe[5]}%`);
+
+  // BU section
+  set('bu1-rev',   fmtM(d.bu1Rev26));
+  set('bu1-eb',    `€${fmt(d.bu1Eb26)}k`);
+  set('bu1-rev31', fmtM(d.bu1Rev31));
+  set('bu2-rev',   fmtM(d.bu2Rev26));
+  set('bu2-eb',    `€${fmt(d.bu2Eb26)}k`);
+  set('bu2-rev31', fmtM(d.bu2Rev31));
+  set('bu3-rev',   fmtM(d.bu3Rev26));
+  set('bu3-eb',    `€${fmt(d.bu3Eb26)}k`);
+  set('bu3-rev31', fmtM(d.bu3Rev31));
+
+  // Cap8
+  set('k8-ev',    fmtM(d.evMid));
+  set('k8-ev2',   fmtM(d.evMid));
+  set('k8-evmid', fmtM(d.evMid));
+  set('k8-mult',  `${d.multMid}x`);
+  set('ev-mid',   fmtM(d.evMid));
+  set('ev-high',  fmtM(d.evHigh));
+  set('ev-low',   fmtM(d.evLow));
+  set('ev-mid-mult',  `× ${d.multMid} EV/EBITDA`);
+  set('ev-high-mult', `× ${d.multHigh} EV/EBITDA`);
+  set('ev-low-mult',  `× ${d.multLow} EV/EBITDA`);
+}
+
+// ─────────────────────────── NARRATIVES ───────────────────────────
+function updateNarratives() {
+  const cls = {real:'real', opt:'opt', pes:'pes'}[SC];
+  Object.keys(NARRATIVES).forEach(k=>{
+    const el = document.getElementById(`narr-${k}`);
+    if (!el) return;
+    el.className = `sc-narrative ${cls} reveal visible`;
+    el.innerHTML = NARRATIVES[k][SC];
+  });
+}
+
+// ─────────────────────────── SET SCENARIO ───────────────────────────
+function setScenario(sc) {
+  SC = sc;
+  document.querySelectorAll('.sc-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.sc-btn.${sc}`).classList.add('active');
+  updateKPIs();
+  updateNarratives();
+  buildCharts();
+  buildDebtBars();
+  buildPVMTable();
+}
+
+// ─────────────────────────── SCROLL / NAV ───────────────────────────
+const SECTIONS = ['s0','s1','s2','s3','s4','s5','s6','s7','s8'];
+const dots = document.querySelectorAll('.nav-dot');
+window.addEventListener('scroll',()=>{
+  const h = document.documentElement;
+  document.getElementById('progress').style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  const mid = window.scrollY + window.innerHeight/2;
+  SECTIONS.forEach((id,i)=>{
+    const el = document.getElementById(id); if (!el) return;
+    dots[i]?.classList.toggle('active', mid>=el.offsetTop && mid<el.offsetTop+el.offsetHeight);
+  });
+});
+function scrollToSection(i){document.getElementById(SECTIONS[i])?.scrollIntoView({behavior:'smooth'});}
+
+// ─────────────────────────── REVEAL ───────────────────────────
+const obs = new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting) e.target.classList.add('visible');
+}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ─────────────────────────── INIT ───────────────────────────
+updateKPIs();
+updateNarratives();
+buildCharts();
+buildDebtBars();
+buildPVMTable();
+</script>
+</body>
+</html>
